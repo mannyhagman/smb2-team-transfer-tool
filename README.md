@@ -20,9 +20,9 @@ It is recommended that you create a folder to store the tool and the .team files
 
 ![Alt text](https://raw.githubusercontent.com/JudgeZarbi/smb2-team-transfer-tool/master/images/image2.png)
 
-In addition, you can manually take a backup of your save data if you wish before using this tool. You can find this (as well as the automatic backup made by the tool when importing teams) by entering `%USERPROFILE%\AppData\Local\Metalhead\Super Mega Baseball 2\` into your file browser address bar and looking inside the folder in that location.
+In addition, if you wish, though it is highly recommended, you can manually take a backup of your save data before using this tool. You can find this (as well as the automatic backup made by the tool when importing teams) by entering `%USERPROFILE%\AppData\Local\Metalhead\Super Mega Baseball 2\` into your file browser address bar and looking inside the folder in that location.
 
-To quit the program at any point if you wish to stop, use <kbd>Ctrl</kbd>-<kbd>C</kbd>.
+If you wish to stop and quit the program at any point, use <kbd>Ctrl</kbd>-<kbd>C</kbd>. Be aware that if you stop it while it is in the process of importing or exporting data, you may corrupt your save file or the export data.
 
 ## Exporting teams
 Type <kbd>2</kbd> to enter export mode, then type the name of the team you wish to export.
