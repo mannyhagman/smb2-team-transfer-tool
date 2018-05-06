@@ -348,9 +348,9 @@ def main():
     in_fname = os.path.join(save_files[0][0], save_files[0][1])
 
     try:
-        in_file = open(in_fname, 'rb').read()
+        with open(in_fname, 'rb') as in_data:
+            in_file = in_data.read()
         print('Found save data file.')
-        in_file.close()
     except FileNotFoundError:
         print('No save data found.')
         print('Press Enter key to exit.')
@@ -375,21 +375,21 @@ def main():
             success = True
             try:
                 import_team(save_files[0], c)
+                conn.commit()
+                conn.close()
+                with open('database.sqlite', 'rb') as new_data:
+                    new_save = new_data.read()
+                zlib_save = zlib.compress(new_save)
+                f = open(os.path.join(save_files[0][0], 'savedata_new.sav'), 'wb')
+                f.write(zlib_save)
+                f.close()
+                os.replace(os.path.join(save_files[0][0], 'savedata_new.sav'), os.path.join(save_files[0][0], save_files[0][1]))
             except sqlite3.IntegrityError:
                 print('There has been a problem with the database.')
                 print('Are you trying to add a team that already exists?')
                 print('Press Enter to exit.')
                 input('')
                 sys.exit(0)
-                conn.commit()
-                conn.close()
-                new_save = open('database.sqlite', 'rb').read()
-                zlib_save = zlib.compress(new_save)
-                f = open(os.path.join(save[0], 'savedata_new.sav'), 'wb')
-                f.write(zlib_save)
-                f.close()
-                new_save.close()
-                os.replace(os.path.join(save[0], 'savedata_new.sav'), os.path.join(save[0], save[1]))
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
