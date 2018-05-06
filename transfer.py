@@ -386,7 +386,6 @@ def main():
                 input('')
                 sys.exit(0)
                 conn.commit()
-                conn.close()
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
@@ -394,13 +393,13 @@ def main():
             success = True
             try:
                 export_team(c)
-                conn.close()
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
         else:
             print('You did not type 1 or 2. Please try again.')
 
+    conn.close()
     os.remove('database.sqlite')
 
     print('Done! Press enter to exit.')
