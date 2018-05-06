@@ -318,11 +318,6 @@ def import_team(save, c):
     for guid in logo_attrs:
         c.executemany('INSERT INTO t_team_logo_attributes VALUES (?, ?, ?, ?, ?, ?, ?)', guid)
 
-    new_save = open('database.sqlite', 'rb').read()
-    zlib_save = zlib.compress(new_save)
-    f = open(os.path.join(save[0], save[1]), 'wb')
-    f.write(zlib_save)
-    f.close()
 
 
 def main():
@@ -386,6 +381,12 @@ def main():
                 input('')
                 sys.exit(0)
                 conn.commit()
+                conn.close()
+                new_save = open('database.sqlite', 'rb').read()
+                zlib_save = zlib.compress(new_save)
+                f = open(os.path.join(save[0], save[1]), 'wb')
+                f.write(zlib_save)
+                f.close()
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
@@ -393,13 +394,13 @@ def main():
             success = True
             try:
                 export_team(c)
+                conn.close()
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
         else:
             print('You did not type 1 or 2. Please try again.')
 
-    conn.close()
     os.remove('database.sqlite')
 
     print('Done! Press enter to exit.')
