@@ -384,9 +384,10 @@ def main():
                 conn.close()
                 new_save = open('database.sqlite', 'rb').read()
                 zlib_save = zlib.compress(new_save)
-                f = open(os.path.join(save[0], save[1]), 'wb')
+                f = open(os.path.join(save[0], 'savedata_new.sav'), 'wb')
                 f.write(zlib_save)
                 f.close()
+                os.replace(os.path.join(save[0], 'savedata_new.sav'), os.path.join(save[0], save[1]))
             except KeyboardInterrupt:
                 conn.close()
                 raise KeyboardInterrupt from None
