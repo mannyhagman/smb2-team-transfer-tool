@@ -21,8 +21,9 @@ In addition, you can manually take a backup of your save data if you wish before
 To quit the program at any point if you wish to stop, use <kbd>Ctrl</kbd>-<kbd>C</kbd>.
 
 ## Exporting teams
-Type <kbd>2</kbd> to enter export mode, then type the name of the team you wish to export. If there are multiple teams with a name, such as if you've made a copy of a built-in team, simply follow the instructions and select the team that you wish to export.
-(Screenshot of steps)
+Type <kbd>2</kbd> to enter export mode, then type the name of the team you wish to export.(Screenshot of steps)
+
+If there are multiple teams with a name, such as if you've made a copy of a built-in team, simply follow the instructions and select the team that you wish to export.(Screenshot of that possibility)
 
 Once you have made your selection, the program will output a .team file in the same folder as the executable is located. This contains your team data that you can share for other people to import.
 (Screenshot of folder with .team file)
