@@ -350,6 +350,7 @@ def main():
     try:
         in_file = open(in_fname, 'rb').read()
         print('Found save data file.')
+        in_file.close()
     except FileNotFoundError:
         print('No save data found.')
         print('Press Enter key to exit.')
@@ -387,6 +388,7 @@ def main():
                 f = open(os.path.join(save[0], 'savedata_new.sav'), 'wb')
                 f.write(zlib_save)
                 f.close()
+                new_save.close()
                 os.replace(os.path.join(save[0], 'savedata_new.sav'), os.path.join(save[0], save[1]))
             except KeyboardInterrupt:
                 conn.close()
