@@ -1,6 +1,8 @@
 # Ferrea's Team Transfer Tool
 A tool to transfer teams between saves in Super Mega Baseball 2
 
+Built into a Windows executable using PyInstall with the --onefile option.
+
 **This tool is still in a beta state. It has been tested and should function as expected, however there are no guarantees that use of this tool will not corrupt or destroy your save data. Taking backups manually is highly recommended.**
 
 # Installation
