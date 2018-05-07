@@ -1,5 +1,5 @@
 # Ferrea's Team Transfer Tool
-A tool to transfer teams between saves in Super Mega Baseball 2
+A tool to transfer teams between saves for PC in Super Mega Baseball 2
 
 Built into a Windows executable using PyInstall with the --onefile option.
 
@@ -11,6 +11,8 @@ Simply download the standalone binaries from [the latest release](https://github
 Depending on your PC settings, the tool may be blocked. To solve this, right click on the executable, select Properties, then select Unblock, then apply the changes.
 
 ![Alt text](https://raw.githubusercontent.com/JudgeZarbi/smb2-team-transfer-tool/master/images/image1.png)
+
+The tool will automatically find your save file, although if for whatever reason you have multiple save files inside the save game location, the tool will refuse to continue.
 
 # Usage
 
