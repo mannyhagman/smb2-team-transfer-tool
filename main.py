@@ -341,7 +341,7 @@ def main():
         sys.exit(0)
     elif (len(save_files) == 0):
         print('No save data found.')
-        print('Press Enter key to exit.')
+        print('Press Enter to exit.')
         input('')
         sys.exit(0)
 
@@ -353,7 +353,7 @@ def main():
         print('Found save data file.')
     except FileNotFoundError:
         print('No save data found.')
-        print('Press Enter key to exit.')
+        print('Press Enter to exit.')
         input('')
         sys.exit(1)
 
