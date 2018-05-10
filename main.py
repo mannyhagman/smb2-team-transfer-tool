@@ -8,30 +8,6 @@ import math
 import shutil
 import util
 
-# SMB2 saves GUIDs in blob form, which Python makes bytes
-# Convert it to UUID form to save to file
-# then check if the type is guid coming back.
-class BytesEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, bytes):
-            return {
-                "_type": "guid",
-                "value": uuid.UUID(bytes=obj).hex
-            }
-        return super(BytesEncoder, self).default(obj)
-
-class BytesDecoder(json.JSONDecoder):
-    def __init__(self, *args, **kwargs):
-        json.JSONDecoder.__init__(self, object_hook=self.object_hook, *args, **kwargs)
-
-    def object_hook(self, obj):
-        if '_type' not in obj:
-            return obj
-        type = obj['_type']
-        if type == 'guid':
-            return uuid.UUID(obj['value']).bytes
-        return obj
-
 def export_team(c):
 
     while True:
@@ -161,7 +137,7 @@ def export_team(c):
         fname = team_name + '.team'
 
     f = open(fname, 'w')
-    f.write(json.dumps(data, cls=BytesEncoder))
+    f.write(json.dumps(data, cls=util.json.BytesEncoder))
     f.close()
 
 def import_team(save, c):
@@ -241,7 +217,7 @@ def import_team(save, c):
         print('')
 
     with open(team_load) as team_file:
-        data = json.loads(team_file.read(), cls=BytesDecoder)
+        data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
 
     # t_teams
     team_data = data['team_data']
