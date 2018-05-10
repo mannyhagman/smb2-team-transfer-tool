@@ -1,13 +1,16 @@
 import os
 import zlib
+import sys
+
 
 def _get_save_location():
     """Get the OS-dependent save location"""
     save_name = 'savedata.sav'
+    save_dir = '~\AppData\local\Metalhead\Super Mega Baseball 2'
     if os.name == 'nt':
         save_files = []
 
-        for root, dirs, files in os.walk(os.path.expanduser('~\AppData\local\Metalhead\Super Mega Baseball 2')):
+        for root, dirs, files in os.walk(os.path.expanduser(save_dir)):
             for name in files:
                 if (name == save_name):
                     save_files.append((root, name))
@@ -18,6 +21,7 @@ def _get_save_location():
         files = os.listdir()
         if 'savedata.sav' in files:
             return [('.', 'savedata.sav')]
+
 
 def _extract_save_file(save_files):
     """Does basic error checking and decompresses the save file."""
@@ -58,6 +62,7 @@ def load_data():
 
     return save_files[0]
 
+
 def save_data(save_file):
     """Saves the modified database
 
@@ -73,4 +78,5 @@ def save_data(save_file):
     f = open(os.path.join(save_file[0], 'savedata_new.sav'), 'wb')
     f.write(zlib_save)
     f.close()
-    os.replace(os.path.join(save_file[0], 'savedata_new.sav'), os.path.join(save_file[0], save_file[1]))
+    os.replace(os.path.join(save_file[0], 'savedata_new.sav'),
+               os.path.join(save_file[0], save_file[1]))
