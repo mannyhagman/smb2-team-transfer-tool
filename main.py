@@ -343,13 +343,7 @@ def main():
                 import_team(save_files[0], c)
                 conn.commit()
                 conn.close()
-                with open('database.sqlite', 'rb') as new_data:
-                    new_save = new_data.read()
-                zlib_save = zlib.compress(new_save)
-                f = open(os.path.join(save_files[0][0], 'savedata_new.sav'), 'wb')
-                f.write(zlib_save)
-                f.close()
-                os.replace(os.path.join(save_files[0][0], 'savedata_new.sav'), os.path.join(save_files[0][0], save_files[0][1]))
+                util.save.save_data(save_files[0])
             except sqlite3.IntegrityError:
                 print('There has been a problem with the database.')
                 print('Are you trying to add a team that already exists?')

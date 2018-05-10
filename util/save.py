@@ -52,3 +52,13 @@ def load_data():
     _extract_save_file(save_files)
 
     return save_files
+
+def save_data(save_file):
+
+    with open('database.sqlite', 'rb') as new_data:
+        new_save = new_data.read()
+    zlib_save = zlib.compress(new_save)
+    f = open(os.path.join(save_file[0], 'savedata_new.sav'), 'wb')
+    f.write(zlib_save)
+    f.close()
+    os.replace(os.path.join(save_file[0], 'savedata_new.sav'), os.path.join(save_file[0], save_file[1]))
