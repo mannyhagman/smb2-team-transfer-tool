@@ -6,6 +6,7 @@ import uuid
 import sys
 import math
 import shutil
+import util
 
 # SMB2 saves GUIDs in blob form, which Python makes bytes
 # Convert it to UUID form to save to file
@@ -182,6 +183,7 @@ def import_team(save, c):
 
     team_files = sorted(team_files)
     if(len(team_files) == 0):
+        # TODO add some output here to make the user aware
         return
     # List pages of the team files
     cur_page = 1
@@ -324,43 +326,7 @@ def main():
 
     print("Ferrea's SMB2 Team Transfer Tool 0.1 beta")
 
-    #This is for easier Linux testing for me
-    #in_fname = 'savedata.sav'
-
-    save_files = []
-
-    for root, dirs, files in os.walk(os.path.expanduser('~\AppData\local\Metalhead\Super Mega Baseball 2')):
-        for name in files:
-            if (name == 'savedata.sav'):
-                save_files.append((root, name))
-
-    if len(save_files) > 1:
-        print('Multiple save files! Quitting to avoid problems.')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(0)
-    elif (len(save_files) == 0):
-        print('No save data found.')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(0)
-
-    in_fname = os.path.join(save_files[0][0], save_files[0][1])
-
-    try:
-        with open(in_fname, 'rb') as in_data:
-            in_file = in_data.read()
-        print('Found save data file.')
-    except FileNotFoundError:
-        print('No save data found.')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(1)
-
-    decomp_in_file = zlib.decompress(in_file)
-    f = open('database.sqlite', 'wb')
-    f.write(decomp_in_file)
-    f.close()
+    save_files = util.save.load_data()
 
     conn = sqlite3.connect('database.sqlite')
     c = conn.cursor()
