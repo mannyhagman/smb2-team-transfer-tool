@@ -52,4 +52,6 @@ def load_data():
 
     save_files = _get_save_location()
 
+    _extract_save_file(save_files)
+
     return save_files
