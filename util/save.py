@@ -20,7 +20,7 @@ def _get_save_location():
             return [('.', 'savedata.sav')]
 
 def _extract_save_file(save_files):
-    """Error checks and decompresses the save file."""
+    """Does basic error checking and decompresses the save file."""
 
     if len(save_files) > 1:
         print('Multiple save files! Quitting to avoid problems.')
@@ -46,6 +46,11 @@ def _extract_save_file(save_files):
 
 
 def load_data():
+    """Loads the save data and returns the save location.
+
+    Returns:
+    save_files[0] - A tuple with directory and save name.
+    """
 
     save_files = _get_save_location()
 
@@ -54,6 +59,13 @@ def load_data():
     return save_files[0]
 
 def save_data(save_file):
+    """Saves the modified database
+
+    Creates a copy then moves it when written
+
+    Arguments:
+    save_file - A tuple with directory and save name
+    """
 
     with open('database.sqlite', 'rb') as new_data:
         new_save = new_data.read()
