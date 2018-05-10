@@ -102,3 +102,4 @@ ENV/
 
 # personal extras
 test/
+*.swp
