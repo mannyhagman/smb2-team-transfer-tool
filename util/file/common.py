@@ -12,3 +12,14 @@ def export_file(data, type):
 
     # The exports dict holds a callable, which we then call
     types.exports[type](data)
+
+
+def import_file(file_name, type):
+    """Imports data from a JSON file
+
+    Arguments:
+    file_name - the name of the file to import
+    type - the type of file to read
+    """
+
+    return types.imports[type](file_name)

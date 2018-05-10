@@ -9,4 +9,4 @@ class FileTypes(Enum):
 
 exports = {FileTypes.TEAM: team.export_team}
 
-imports = {}
+imports = {FileTypes.TEAM: team.import_team}

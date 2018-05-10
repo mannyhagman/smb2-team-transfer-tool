@@ -28,3 +28,10 @@ def export_team(data):
     f = open(fname, 'w')
     f.write(json.dumps(data, cls=util.json.BytesEncoder))
     f.close()
+
+
+def import_team(file):
+    with open(file) as team_file:
+        data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
+
+    return data

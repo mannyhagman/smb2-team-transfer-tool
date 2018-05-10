@@ -3,6 +3,7 @@
 import os
 import zlib
 import sys
+import shutil
 
 
 def _get_save_location():
@@ -81,3 +82,16 @@ def save_data(save_file):
     f.close()
     os.replace(os.path.join(save_file[0], 'savedata_new.sav'),
                os.path.join(save_file[0], save_file[1]))
+
+
+def backup_data(save_file):
+    """Backs up the original save data
+
+    Copies savedata.sav to savedata_backup.sav
+
+    Arguments:
+    save_file - A tuple with directory and save name
+    """
+    shutil.copy2(os.path.join(save_file[0], save_file[1]),
+                 os.path.join(save_file[0], 'savedata_backup.sav'))
+    print('Backup of savedata made to savedata_backup.sav')
