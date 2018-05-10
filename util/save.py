@@ -1,17 +1,24 @@
 import os
-import sys
 import zlib
 
-def load_data():
-    save_files = []
+def _get_save_location():
+    """Get the OS-dependent save location"""
+    save_name = 'savedata.sav'
+    if os.name == 'nt':
+        save_files = []
 
-    for root, dirs, files in os.walk(os.path.expanduser('~\AppData\local\Metalhead\Super Mega Baseball 2')):
-        for name in files:
-            if (name == 'savedata.sav'):
-                save_files.append((root, name))
+        for root, dirs, files in os.walk(os.path.expanduser('~\AppData\local\Metalhead\Super Mega Baseball 2')):
+            for name in files:
+                if (name == save_name):
+                    save_files.append((root, name))
 
-    #This is for easier Linux testing for me
-    save_files = [('.', 'savedata.sav')]
+        return save_files
+
+    elif os.name == 'posix':
+        return [('.', 'savedata.sav')]
+
+def _extract_save_file(save_files):
+    """Error checks and decompresses the save file."""
 
     if len(save_files) > 1:
         print('Multiple save files! Quitting to avoid problems.')
@@ -39,5 +46,10 @@ def load_data():
     f = open('database.sqlite', 'wb')
     f.write(decomp_in_file)
     f.close()
+
+
+def load_data():
+
+    save_files = _get_save_location()
 
     return save_files
