@@ -1,9 +1,4 @@
-"""Utility module to work with save data.
-
-Functions:
-load_data - Decompresses the data ready for sqlite
-save_data - Compresses the data into a new save file
-"""
+"""Utility module to work with save data."""
 
 import os
 import zlib
@@ -59,8 +54,7 @@ def _extract_save_file(save_files):
 def load_data():
     """Loads the save data and returns the save location.
 
-    Returns:
-    save_files[0] - A tuple with directory and save name.
+    Returns a tuple with directory and save name.
     """
 
     save_files = _get_save_location()
