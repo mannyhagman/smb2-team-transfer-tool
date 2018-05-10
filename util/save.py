@@ -1,3 +1,10 @@
+"""Utility module to work with save data.
+
+Functions:
+load_data - Decompresses the data ready for sqlite
+save_data - Compresses the data into a new save file
+"""
+
 import os
 import zlib
 import sys
