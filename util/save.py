@@ -15,7 +15,9 @@ def _get_save_location():
         return save_files
 
     elif os.name == 'posix':
-        return [('.', 'savedata.sav')]
+        files = os.listdir()
+        if 'savedata.sav' in files:
+            return [('.', 'savedata.sav')]
 
 def _extract_save_file(save_files):
     """Error checks and decompresses the save file."""
@@ -33,14 +35,9 @@ def _extract_save_file(save_files):
 
     in_fname = os.path.join(save_files[0][0], save_files[0][1])
 
-    try:
-        with open(in_fname, 'rb') as in_data:
-            in_file = in_data.read()
-        print('Found save data file.')
-    except FileNotFoundError:
-        print('No save data found.')
-        print('Press Enter to exit.')
-        input('')
+    with open(in_fname, 'rb') as in_data:
+        in_file = in_data.read()
+    print('Found save data file.')
 
     decomp_in_file = zlib.decompress(in_file)
     f = open('database.sqlite', 'wb')
