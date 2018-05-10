@@ -51,7 +51,7 @@ def load_data():
 
     _extract_save_file(save_files)
 
-    return save_files
+    return save_files[0]
 
 def save_data(save_file):
 

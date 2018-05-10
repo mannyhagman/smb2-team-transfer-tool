@@ -326,7 +326,7 @@ def main():
 
     print("Ferrea's SMB2 Team Transfer Tool 0.1 beta")
 
-    save_files = util.save.load_data()
+    save_file = util.save.load_data()
 
     conn = sqlite3.connect('database.sqlite')
     c = conn.cursor()
@@ -340,10 +340,10 @@ def main():
         if (decision.strip() == '1'):
             success = True
             try:
-                import_team(save_files[0], c)
+                import_team(save_file, c)
                 conn.commit()
                 conn.close()
-                util.save.save_data(save_files[0])
+                util.save.save_data(save_file)
             except sqlite3.IntegrityError:
                 print('There has been a problem with the database.')
                 print('Are you trying to add a team that already exists?')
