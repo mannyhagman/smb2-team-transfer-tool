@@ -21,6 +21,7 @@ def main():
         print('Do you wish to import or export data?')
         print('1. Import')
         print('2. Export')
+        print('3. Create team pack')
         decision = input('--> ')
         if (decision.strip() == '1'):
             success = True
@@ -29,8 +30,11 @@ def main():
         elif (decision.strip() == '2'):
             success = True
             exports.team.export_team()
+        elif (decision.strip() == '3'):
+            success = True
+            exports.pack.create_team_pack()
         else:
-            print('You did not type 1 or 2. Please try again.')
+            print('You did not choose a valid option. Please try again.')
 
     os.remove('database.sqlite')
 
