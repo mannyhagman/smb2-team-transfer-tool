@@ -86,8 +86,10 @@ def select_file(files, page=1, mchoice=False):
                     print('You are already on the first page.')
                 else:
                     cur_page -= 1
-            elif (choice == 'd'):
+            elif (choice == 'd' and mchoice):
                 return (None, cur_page)
+            elif (choice == 'd' and not mchoice):
+                print('That is not a valid option. Please try again.')
             else:
                 return (files[10*(cur_page-1) + int(choice)], cur_page)
         else:
