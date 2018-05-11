@@ -7,4 +7,4 @@ Built into a Windows executable using PyInstall with the --onefile option.
 
 # Documentation
 
-All of the installation and usage information can be found on the [wiki](https://github.com/JudgeZarbi/smb2-team-transfer-tool/wiki)
+All of the installation and usage information can be found on the [wiki](https://github.com/JudgeZarbi/smb2-team-transfer-tool/wiki).
