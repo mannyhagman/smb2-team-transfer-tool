@@ -20,7 +20,10 @@ def _get_team_file():
 
     team_files = sorted(team_files)
     if(len(team_files) == 0):
-        return
+        print('No team files were found.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
     # List pages of the team files
     cur_page = 1
     while True:
