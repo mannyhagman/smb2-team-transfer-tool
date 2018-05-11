@@ -55,39 +55,43 @@ def select_file(files, page=1, mchoice=False):
     allowable_options = ['1', '2', '3', '4', '5', '6', '7', '8',
                          '9', '0', 'n', 'p', 'd']
     max_pages = math.ceil(len(files)/10)
-    print('Page ' + str(cur_page) + ' of team files')
-    print('Choose an option.')
-    max_range = 10
-    if(cur_page == max_pages):
-        max_range = len(files) % 10
-        if (max_range == 0):
-            max_range = 10
-    for i in range(0, max_range):
-        print(str(i) + '. ' + files[10*(cur_page-1) + i])
-    if (cur_page > 1):
-        print('p. Previous page')
-    if (cur_page < max_pages):
-        print('n. Next page')
-    if (mchoice):
-        print('d. Done')
-    choice = input('--> ').strip()
-    if (choice in allowable_options):
-        if (choice == 'n'):
-            if (cur_page == max_pages):
-                print('You are already on the last page.')
+    if (cur_page > max_pages):
+        cur_page = max_pages
+    select = False
+    while not select:
+        print('Page ' + str(cur_page) + ' of team files')
+        print('Choose an option.')
+        max_range = 10
+        if(cur_page == max_pages):
+            max_range = len(files) % 10
+            if (max_range == 0):
+                max_range = 10
+        for i in range(0, max_range):
+            print(str(i) + '. ' + files[10*(cur_page-1) + i])
+        if (cur_page > 1):
+            print('p. Previous page')
+        if (cur_page < max_pages):
+            print('n. Next page')
+        if (mchoice):
+            print('d. Done')
+        choice = input('--> ').strip()
+        if (choice in allowable_options):
+            if (choice == 'n'):
+                if (cur_page == max_pages):
+                    print('You are already on the last page.')
+                else:
+                    cur_page += 1
+            elif (choice == 'p'):
+                if (cur_page == 1):
+                    print('You are already on the first page.')
+                else:
+                    cur_page -= 1
+            elif (choice == 'd'):
+                return (None, cur_page)
             else:
-                cur_page += 1
-        elif (choice == 'p'):
-            if (cur_page == 1):
-                print('You are already on the first page.')
-            else:
-                cur_page -= 1
-        elif (choice == 'd'):
-            return (None, cur_page)
+                return (files[10*(cur_page-1) + int(choice)], cur_page)
         else:
-            return (files[10*(cur_page-1) + int(choice)], cur_page)
-    else:
-        print('That is not a valid option. Please try again.')
+            print('That is not a valid option. Please try again.')
 
 
 def export_file(data, type):
