@@ -1,6 +1,7 @@
 import os
 import sys
 import math
+import util
 
 
 def _get_team_files():
@@ -27,6 +28,9 @@ def _get_team_files():
     files_combine = []
     cur_page = 1
     while True:
+        if(len(team_files) == 0):
+            print('There are no more team files to choose!')
+            return files_combine
         allowable_options = ['1', '2', '3', '4', '5', '6', '7', '8',
                              '9', '0', 'n', 'p', 'd']
         max_pages = math.ceil(len(team_files)/10)
@@ -90,4 +94,20 @@ def _get_team_files():
 
 
 def create_team_pack():
-    pass
+    teams = _get_team_files()
+    team_data_list = []
+    guids = set()
+    for team in teams:
+        data = util.file.common.import_file(team,
+                                            util.file.types.FileTypes.TEAM)
+        guid = data['team_data'][0]
+        if (guid in guids):
+            print('File ' + team + ' appears to already be included.')
+        else:
+            team_data_list.append(data)
+    print(str(len(team_data_list)) + ' teams have been included in the pack.')
+    print('Choose a name for the file.')
+    name = input('--> ').strip()
+    team_data_list.append({'name': name})
+    util.file.common.export_file(team_data_list,
+                                 util.file.types.FileTypes.TEAMPACK)

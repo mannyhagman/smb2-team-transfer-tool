@@ -12,7 +12,7 @@ import imports
 
 def main():
 
-    print("Ferrea's SMB2 Team Transfer Tool 0.1 beta")
+    print("Ferrea's SMB2 Team Transfer Tool v0.3 beta")
 
     save_file = util.save.load_data()
 
