@@ -24,15 +24,8 @@ def main():
         decision = input('--> ')
         if (decision.strip() == '1'):
             success = True
-            try:
-                imports.team.import_team(save_file)
-                util.save.save_data(save_file)
-            except sqlite3.IntegrityError:
-                print('There has been a problem with the database.')
-                print('Are you trying to add a team that already exists?')
-                print('Press Enter to exit.')
-                input('')
-                sys.exit(0)
+            imports.team.import_team(save_file)
+            util.save.save_data(save_file)
         elif (decision.strip() == '2'):
             success = True
             exports.team.export_team()
