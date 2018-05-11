@@ -24,6 +24,7 @@ def _get_team_files():
 
     return files_combine
 
+
 def create_team_pack():
     teams = _get_team_files()
     team_data_list = []
