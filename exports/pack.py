@@ -1,4 +1,5 @@
 import util
+import sys
 
 
 def _get_team_files():
@@ -21,6 +22,12 @@ def _get_team_files():
         if(len(team_files) == 0):
             print('There are no more team files to choose!')
             done = True
+
+    if(len(files_combine) == 0):
+        print('You did not choose any teams to pack!')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
 
     return files_combine
 
