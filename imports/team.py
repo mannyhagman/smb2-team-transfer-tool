@@ -197,3 +197,9 @@ def import_team(save):
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
+    except KeyError:
+        print('There is a problem with your .team file.')
+        print('Try redownloading or recreating your file.')
+        print('If the problem persists, let the developer know.')
+        print('Press Enter to exit.')
+        sys.exit(0)
