@@ -1,1 +1,1 @@
-from . import team
+from . import team  # noqa: F401
