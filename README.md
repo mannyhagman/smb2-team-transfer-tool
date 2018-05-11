@@ -5,6 +5,10 @@ Built into a Windows executable using PyInstall with the --onefile option.
 
 **This tool is still in a beta state. It has been tested and should function as expected, however there are no guarantees that use of this tool will not corrupt or destroy your save data. Taking backups manually is highly recommended.**
 
+# Installing
+
+The executable can be found [here](https://github.com/JudgeZarbi/smb2-team-transfer-tool/releases/latest). For more details and manual check out the [wiki](https://github.com/JudgeZarbi/smb2-team-transfer-tool/wiki).
+
 # Documentation
 
 All of the installation and usage information can be found on the [wiki](https://github.com/JudgeZarbi/smb2-team-transfer-tool/wiki).
