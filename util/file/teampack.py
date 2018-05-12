@@ -1,6 +1,5 @@
 """A module for importing and exporting team data files"""
 import util
-import os
 import json
 
 
@@ -14,18 +13,8 @@ def export_team_pack(data):
     pack_name = data[-1]['name']
     del data[-1]
 
-    if (os.path.isfile(pack_name + '.teampack')):
-        number = 0
-        exists = True
-        while exists:
-            if (os.path.isfile(pack_name + '_' + str(number) + '.teampack')):
-                pass
-                number += 1
-            else:
-                fname = pack_name + '_' + str(number) + '.teampack'
-                exists = False
-    else:
-        fname = pack_name + '.teampack'
+    fname = util.file.common.get_file_name(pack_name,
+                                           util.file.types.FileTypes.TEAMPACK)
 
     f = open(fname, 'w')
     f.write(json.dumps(data, cls=util.json.BytesEncoder))

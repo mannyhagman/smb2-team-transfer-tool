@@ -5,6 +5,36 @@ import sys
 import math
 
 
+def get_file_name(file, type):
+    """Gets an unused file name to save the file to.
+
+    It'll try name.ext, but if it's already in use,
+    it'll try name_0.ext, then name_1.ext, and so on,
+    until it finds an unused one.
+
+    Arguments:
+    file - the name to try and save to
+    type - the type of file to save, determines extension
+    """
+
+    if (os.path.isfile(file + types.extensions[type])):
+        print(file + types.extensions[type] + ' already exists...')
+        number = 0
+        exists = True
+        while exists:
+            if (os.path.isfile(file + '_' + str(number) +
+                               types.extensions[type])):
+                number += 1
+            else:
+                fname = file + '_' + str(number) + types.extensions[type]
+                exists = False
+    else:
+        fname = file + types.extensions[type]
+
+    print('Saving file as ' + fname)
+    return fname
+
+
 def get_team_files_list(team, teampack):
     """Collects and allows the user to choose which team files to combine
 
