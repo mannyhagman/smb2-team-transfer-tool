@@ -12,9 +12,13 @@ class FileTypes(Enum):
 exports = {FileTypes.TEAM: team.export_team,
            FileTypes.TEAMPACK: teampack.export_team_pack}
 
-# They import data the same way, so it's okay
 imports = {FileTypes.TEAM: team.import_team,
-           FileTypes.TEAMPACK: team.import_team}
+           FileTypes.TEAMPACK: teampack.import_team_pack}
 
 extensions = {FileTypes.TEAM: '.team',
               FileTypes.TEAMPACK: '.teampack'}
+
+cur_ver = 1
+
+compat = {FileTypes.TEAM: [],
+          FileTypes.TEAMPACK: []}

@@ -6,6 +6,26 @@ import math
 import util
 
 
+def is_file_compatible(data, type):
+    """Determines if a file is compatible with the tool.
+
+    Returns a boolean.
+
+    Arguments:
+    data - the data to check the version of
+    type - the type of file that data is
+    """
+
+    try:
+        version = data['version']
+    except KeyError:
+        version = 1
+    if version == types.cur_ver or version in types.compat[type][version]:
+        return True
+    else:
+        return False
+
+
 def get_file_name(file, type):
     """Gets an unused file name to save the file to.
 
