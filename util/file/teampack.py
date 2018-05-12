@@ -19,10 +19,3 @@ def export_team_pack(data):
     f = open(fname, 'w')
     f.write(json.dumps(data, cls=util.json.BytesEncoder))
     f.close()
-
-
-def import_team_pack(file):
-    with open(file) as team_pack_file:
-        data = json.loads(team_pack_file.read(), cls=util.json.BytesDecoder)
-
-    return data

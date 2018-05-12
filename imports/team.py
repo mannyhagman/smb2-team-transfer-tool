@@ -113,31 +113,37 @@ def import_team(save):
 
     if (team_file[-5:] == '.team'):
         file_type = util.file.types.FileTypes.TEAM
-    elif (team_file[-9:] == '.teamfile'):
-        file_type = util.file.types.FileTypes.TEAMFILE
+    elif (team_file[-9:] == '.teampack'):
+        file_type = util.file.types.FileTypes.TEAMPACK
 
     try:
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         data = util.file.common.import_file(team_file, file_type)
-        _write_data_to_db(c, data)
+        try:
+            if (file_type == util.file.types.FileTypes.TEAM):
+                _write_data_to_db(c, data)
+            elif (file_type == util.file.types.FileTypes.TEAMPACK):
+                for item in data:
+                    _write_data_to_db(c, item)
+        except KeyError:
+            print('There is a problem with your ' +
+                  util.file.types.extensions[file_type] + ' file.')
+            print('Try redownloading or recreating your file.')
+            print('If the problem persists, let the developer know.')
+            print('Press Enter to exit.')
+            sys.exit(0)
+        except sqlite3.IntegrityError:
+            print('There has been a problem with the database.')
+            print('Are you trying to add a team that already exists?')
+            print('Press Enter to exit.')
+            input('')
+            sys.exit(0)
         conn.commit()
         conn.close()
     except KeyboardInterrupt:
         conn.close()
         raise KeyboardInterrupt from None
-    except sqlite3.IntegrityError:
-        print('There has been a problem with the database.')
-        print('Are you trying to add a team that already exists?')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(0)
-    except KeyError:
-        print('There is a problem with your .team file.')
-        print('Try redownloading or recreating your file.')
-        print('If the problem persists, let the developer know.')
-        print('Press Enter to exit.')
-        sys.exit(0)
 
     util.save.save_data(save)
 
