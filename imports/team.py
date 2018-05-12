@@ -111,11 +111,15 @@ def import_team(save):
 
     team_file = _get_team_file()
 
+    if (team_file[-5:] == '.team'):
+        file_type = util.file.types.FileTypes.TEAM
+    elif (team_file[-9:] == '.teamfile'):
+        file_type = util.file.types.FileTypes.TEAMFILE
+
     try:
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
-        data = util.file.common.import_file(team_file,
-                                            util.file.types.FileTypes.TEAM)
+        data = util.file.common.import_file(team_file, file_type)
         _write_data_to_db(c, data)
         conn.commit()
         conn.close()
