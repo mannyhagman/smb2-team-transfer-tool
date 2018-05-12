@@ -84,7 +84,9 @@ def select_file(files, page=1, mchoice=False):
     cur_page = page
 
     allowable_options = ['1', '2', '3', '4', '5', '6', '7', '8',
-                         '9', '0', 'n', 'p', 'd', 'b']
+                         '9', '0', 'n', 'p', 'b']
+    if (mchoice):
+        allowable_options.append('d')
     max_pages = math.ceil(len(files)/10)
     if (cur_page > max_pages):
         cur_page = max_pages
@@ -118,10 +120,8 @@ def select_file(files, page=1, mchoice=False):
                     print('You are already on the first page.')
                 else:
                     cur_page -= 1
-            elif (choice == 'd' and mchoice):
+            elif (choice == 'd'):
                 return (None, cur_page)
-            elif (choice == 'd' and not mchoice):
-                print('That is not a valid option. Please try again.')
             elif (choice == 'b'):
                 raise util.QuitException
             else:
