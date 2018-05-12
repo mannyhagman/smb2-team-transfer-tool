@@ -11,13 +11,19 @@ def _export(save_file):
         print('What do you wish to export?')
         print('1. Team')
         print('2. Team pack')
+        print('b. Go back')
         decision = input('--> ')
         if (decision.strip() == '1'):
-            success = True
-            exports.team.export_team()
+            success = exports.team.export_team()
+            return True
         elif (decision.strip() == '2'):
-            success = True
-            exports.pack.create_team_pack()
+            try:
+                success = exports.pack.create_team_pack()
+                return True
+            except util.QuitException:
+                pass
+        elif (decision.strip() == 'b'):
+            return False
         else:
             print('You did not choose a valid option. Please try again.')
 
@@ -27,11 +33,16 @@ def _import(save_file):
     while not success:
         print('What do you wish to import?')
         print('1. Team or team pack')
+        print('b. Go back')
         decision = input('--> ')
         if (decision.strip() == '1'):
-            success = True
-            imports.team.import_team(save_file)
-            util.save.save_data(save_file)
+            try:
+                imports.team.import_team(save_file)
+                return True
+            except util.QuitException:
+                pass
+        elif (decision.strip() == 'b'):
+            return False
         else:
             print('You did not choose a valid option. Please try again.')
 
@@ -47,13 +58,14 @@ def main():
         print('Do you wish to import or export data?')
         print('1. Import')
         print('2. Export')
+        print('b. Quit')
         decision = input('--> ')
         if (decision.strip() == '1'):
-            success = True
-            _import(save_file)
+            success = _import(save_file)
         elif (decision.strip() == '2'):
-            success = True
-            _export(save_file)
+            success = _export(save_file)
+        elif (decision.strip() == 'b'):
+            raise KeyboardInterrupt
         else:
             print('You did not choose a valid option. Please try again.')
 

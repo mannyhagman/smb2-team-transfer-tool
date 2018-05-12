@@ -50,3 +50,5 @@ def create_team_pack():
     team_data_list.append({'name': name})
     util.file.common.export_file(team_data_list,
                                  util.file.types.FileTypes.TEAMPACK)
+
+    return True

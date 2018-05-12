@@ -151,3 +151,5 @@ def export_team():
         raise KeyboardInterrupt from None
 
     util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
+
+    return True

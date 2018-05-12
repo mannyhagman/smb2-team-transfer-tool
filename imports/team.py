@@ -134,3 +134,7 @@ def import_team(save):
         print('If the problem persists, let the developer know.')
         print('Press Enter to exit.')
         sys.exit(0)
+
+    util.save.save_data(save)
+
+    return True
