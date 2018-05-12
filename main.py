@@ -10,7 +10,7 @@ def _export(save_file):
     while not success:
         print('What do you wish to export?')
         print('1. Team')
-        print('2. Team pack')
+        print('2. Create team pack')
         print('b. Go back')
         decision = input('--> ')
         if (decision.strip() == '1'):
