@@ -5,55 +5,6 @@ import exports
 import imports
 
 
-def _export(save_file):
-    success = False
-    while not success:
-        print('What do you wish to export?')
-        print('1. Team')
-        print('2. Create team pack')
-        print('3. Split team pack')
-        print('b. Go back')
-        decision = input('--> ')
-        if (decision.strip() == '1'):
-            success = exports.team.export_team()
-            return True
-        elif (decision.strip() == '2'):
-            try:
-                success = exports.pack.create_team_pack()
-                return True
-            except util.QuitException:
-                pass
-        elif (decision.strip() == '3'):
-            try:
-                success = exports.pack.split_team_pack()
-                return True
-            except util.QuitException:
-                pass
-        elif (decision.strip() == 'b'):
-            return False
-        else:
-            print('You did not choose a valid option. Please try again.')
-
-
-def _import(save_file):
-    success = False
-    while not success:
-        print('What do you wish to import?')
-        print('1. Team or team pack')
-        print('b. Go back')
-        decision = input('--> ')
-        if (decision.strip() == '1'):
-            try:
-                imports.team.import_team(save_file)
-                return True
-            except util.QuitException:
-                pass
-        elif (decision.strip() == 'b'):
-            return False
-        else:
-            print('You did not choose a valid option. Please try again.')
-
-
 def main():
 
     print("Ferrea's SMB2 Team Transfer Tool v0.3 beta")
@@ -62,19 +13,32 @@ def main():
 
     success = False
     while not success:
-        print('Do you wish to import or export data?')
-        print('1. Import')
-        print('2. Export')
+        print('What do you want to do?')
+        print('1. Import a team or team pack')
+        print('2. Export a team')
+        print('3. Create a team pack')
+        print('4. Split a team pack')
         print('b. Quit')
         decision = input('--> ')
-        if (decision.strip() == '1'):
-            success = _import(save_file)
-        elif (decision.strip() == '2'):
-            success = _export(save_file)
-        elif (decision.strip() == 'b'):
-            raise KeyboardInterrupt
-        else:
-            print('You did not choose a valid option. Please try again.')
+        try:
+            if (decision.strip() == '1'):
+                imports.team.import_team(save_file)
+                success = True
+            elif (decision.strip() == '2'):
+                exports.team.export_team()
+                success = True
+            elif (decision.strip() == '3'):
+                exports.pack.create_team_pack()
+                success = True
+            elif (decision.strip() == '4'):
+                exports.pack.split_team_pack()
+                success = True
+            elif (decision.strip() == 'b'):
+                raise KeyboardInterrupt
+            else:
+                print('You did not choose a valid option. Please try again.')
+        except util.QuitException:
+            pass
 
     os.remove('database.sqlite')
 
