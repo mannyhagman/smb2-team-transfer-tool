@@ -69,7 +69,7 @@ def get_team_files_list(team, teampack):
     return team_files
 
 
-def select_file(files, page=1, mchoice=False):
+def select_file(files, page=1, mchoice=False, all=False):
     """Allow the user to select a team from a list
 
     files - the list of files to be chosen from
@@ -77,6 +77,7 @@ def select_file(files, page=1, mchoice=False):
     mchoice - Enables the d - done option.
               Meant for if the user is able to select
               multiple choices and decide when they're done.
+    all - Whether the user should be presented with a select all option.
     """
 
     print('')
@@ -87,6 +88,8 @@ def select_file(files, page=1, mchoice=False):
                          '9', '0', 'n', 'p', 'b']
     if (mchoice):
         allowable_options.append('d')
+    if (all):
+        allowable_options.append('a')
     max_pages = math.ceil(len(files)/10)
     if (cur_page > max_pages):
         cur_page = max_pages
@@ -105,6 +108,8 @@ def select_file(files, page=1, mchoice=False):
             print('p. Previous page')
         if (cur_page < max_pages):
             print('n. Next page')
+        if (all):
+            print('a. Export all')
         if (mchoice):
             print('d. Done')
         print('b. Go back')
@@ -124,6 +129,8 @@ def select_file(files, page=1, mchoice=False):
                 return (None, cur_page)
             elif (choice == 'b'):
                 raise util.QuitException
+            elif (choice == 'a'):
+                return (True, cur_page)
             else:
                 return (files[10*(cur_page-1) + int(choice)], cur_page)
         else:

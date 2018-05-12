@@ -11,6 +11,7 @@ def _export(save_file):
         print('What do you wish to export?')
         print('1. Team')
         print('2. Create team pack')
+        print('3. Split team pack')
         print('b. Go back')
         decision = input('--> ')
         if (decision.strip() == '1'):
@@ -19,6 +20,12 @@ def _export(save_file):
         elif (decision.strip() == '2'):
             try:
                 success = exports.pack.create_team_pack()
+                return True
+            except util.QuitException:
+                pass
+        elif (decision.strip() == '3'):
+            try:
+                success = exports.pack.split_team_pack()
                 return True
             except util.QuitException:
                 pass
