@@ -1,8 +1,6 @@
 import util
 import sys
 import sqlite3
-import math
-import os
 
 
 def _get_team_file():
@@ -12,6 +10,7 @@ def _get_team_file():
     file, page = util.file.common.select_file(team_files, 1)
 
     return file
+
 
 def _write_data_to_db(c, data):
     """Writes the data read from file into the DB"""
