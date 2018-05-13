@@ -56,37 +56,42 @@ def get_file_name(file, type):
     return fname
 
 
-def get_team_files_list(team, teampack):
+def get_team_files_list(types):
     """Collects and allows the user to choose which team files to combine
 
     Arguments:
-    team - boolean for whether .team files are needed
-    teampack - boolean for whether .teampack files are needed
+    types - a list of enums to use to find extensions
     """
-    team_files = []
-    for root, dirs, files in os.walk('.'):
-        for filename in files:
-            if(team and filename[-5:] == '.team'):
-                reldir = os.path.relpath(root, '.')
-                relfile = os.path.join(reldir, filename)
-                if relfile[:2] == './' or relfile[:2] == '.\\':
-                    relfile = relfile[2:]
-                team_files.append(relfile)
-            if(teampack and filename[-9:] == '.teampack'):
-                reldir = os.path.relpath(root, '.')
-                relfile = os.path.join(reldir, filename)
-                if relfile[:2] == './' or relfile[:2] == '.\\':
-                    relfile = relfile[2:]
-                team_files.append(relfile)
 
-    team_files = sorted(team_files)
-    if(len(team_files) == 0):
-        print('No team or teampack files were found.')
+    if(types):
+        exts = [util.file.types.extensions[t] for t in types]
+    else:
+        print('No extensions were requested!')
+        print('If you see this, it\'s a bug! Please report it.')
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
 
-    return team_files
+    exts = tuple(exts)
+
+    files = []
+    for root, dirs, files_ in os.walk('.'):
+        for filename in files_:
+            if(filename.endswith(exts)):
+                reldir = os.path.relpath(root, '.')
+                relfile = os.path.join(reldir, filename)
+                if relfile[:2] == './' or relfile[:2] == '.\\':
+                    relfile = relfile[2:]
+                files.append(relfile)
+
+    files = sorted(files)
+    if(len(files) == 0):
+        print('No valid files were found.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
+
+    return files
 
 
 def select_file(files, page=1, mchoice=False, all=False):
