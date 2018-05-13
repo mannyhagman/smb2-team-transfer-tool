@@ -36,16 +36,17 @@ def _get_team_files():
 def create_team_pack():
     teams = _get_team_files()
     team_data_list = []
-    guids = set()
+    names = set()
     print('Choose teams to include in the team pack.')
     for team in teams:
         data = util.file.common.import_file(team,
                                             util.file.types.FileTypes.TEAM)
-        guid = data['team_data'][0]
-        if (guid in guids):
-            print('File ' + team + ' appears to already be included.')
+        name = data['team_data'][2]
+        if (name in names):
+            print('A team with name ' + team + ' appears to already be included.')
         else:
             team_data_list.append(data)
+            names.add(name)
     print(str(len(team_data_list)) + ' teams have been included in the pack.')
     print('Choose a name for the file.')
     name = input('--> ').strip()
