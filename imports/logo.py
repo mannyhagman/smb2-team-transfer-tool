@@ -44,7 +44,7 @@ def import_logo(save):
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team you wish to import the logo to.')
-        logo_guid = uuid.uuid4()
+        logo_guid = uuid.uuid4().bytes
         team_guid = util.db._get_team_guid(c)
         _clear_existing_data(c, team_guid)
         data = util.file.common.import_file(logo_file,
