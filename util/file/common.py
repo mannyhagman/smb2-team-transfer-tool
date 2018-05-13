@@ -122,6 +122,7 @@ def select_file(files, page=1, mchoice=False, all=False):
         allowable_options.add('a')
 
     while not select:
+        print('')
         print('Page ' + str(cur_page) + ' of team files')
         print('Choose an option.')
         max_range = 10
