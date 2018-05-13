@@ -3,7 +3,8 @@ def _get_team_guid(c):
     while True:
         print('Type the name of the team you wish to export.')
         team_name = input('--> ')
-        c.execute('SELECT * FROM t_teams WHERE teamName = ? COLLATE NOCASE',
+        c.execute('SELECT * FROM t_teams WHERE teamType = 1 AND '
+                  ' teamName = ? COLLATE NOCASE',
                   (team_name,))
         team_choices = c.fetchall()
         if len(team_choices) == 0:
