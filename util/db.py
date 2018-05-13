@@ -1,7 +1,6 @@
 def _get_team_guid(c):
     """User chooses a team, GUID is returned for use in the DB"""
     while True:
-        print('Type the name of the team you wish to export.')
         team_name = input('--> ')
         c.execute('SELECT * FROM t_teams WHERE teamType = 1 AND '
                   ' teamName = ? COLLATE NOCASE',

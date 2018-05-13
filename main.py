@@ -44,13 +44,13 @@ def main():
             elif (decision.strip() == 'b'):
                 raise KeyboardInterrupt
             else:
-                print('You did not choose a valid option. Please try again.')
+                print('That is not a valid option. Please try again.')
         except util.GoBackException:
             pass
 
     os.remove('database.sqlite')
 
-    print('Done! Press enter to exit.')
+    print('Done! Press Enter to exit.')
     input('')
 
 

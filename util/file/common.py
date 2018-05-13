@@ -67,7 +67,7 @@ def get_team_files_list(types):
         exts = [util.file.types.extensions[t] for t in types]
     else:
         print('No extensions were requested!')
-        print('If you see this, it\'s a bug! Please report it.')
+        print('This is a bug! Please report it.')
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
@@ -110,15 +110,21 @@ def select_file(files, page=1, mchoice=False, all=False):
     cur_page = page
 
     allowable_options = ['1', '2', '3', '4', '5', '6', '7', '8',
-                         '9', '0', 'n', 'p', 'b']
-    if (mchoice):
-        allowable_options.append('d')
-    if (all):
-        allowable_options.append('a')
+                         '9', '0', 'b']
     max_pages = math.ceil(len(files)/10)
     if (cur_page > max_pages):
         cur_page = max_pages
     select = False
+
+    if (mchoice):
+        allowable_options.append('d')
+    if (all):
+        allowable_options.append('a')
+    if (cur_page > 1):
+        allowable_options.append('p')
+    if (cur_page < max_pages):
+        allowable_options.append('n')
+
     while not select:
         print('Page ' + str(cur_page) + ' of team files')
         print('Choose an option.')
@@ -141,15 +147,9 @@ def select_file(files, page=1, mchoice=False, all=False):
         choice = input('--> ').strip()
         if (choice in allowable_options):
             if (choice == 'n'):
-                if (cur_page == max_pages):
-                    print('You are already on the last page.')
-                else:
-                    cur_page += 1
+                cur_page += 1
             elif (choice == 'p'):
-                if (cur_page == 1):
-                    print('You are already on the first page.')
-                else:
-                    cur_page -= 1
+                cur_page -= 1
             elif (choice == 'd'):
                 return (None, cur_page)
             elif (choice == 'b'):

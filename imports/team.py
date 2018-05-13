@@ -130,7 +130,8 @@ def import_team(save):
                     _write_data_to_db(c, data)
                 except sqlite3.IntegrityError:
                     print('There has been a problem with the database.')
-                    print('Does a team with that name (' + team_name + ') already exist?')
+                    print('Does a team with that name (' + team_name +
+                          ') already exist?')
                     print('Press Enter to exit.')
                     input('')
                     sys.exit(0)
@@ -138,10 +139,11 @@ def import_team(save):
                 for item in data:
                     team_name = item['team_data'][2]
                     try:
-                         _write_data_to_db(c, item)
+                        _write_data_to_db(c, item)
                     except sqlite3.IntegrityError:
                         print('There has been a problem with the database.')
-                        print('Does a team with that name (' + team_name + ') already exist?')
+                        print('Does a team with that name (' + team_name +
+                              ') already exist?')
                         print('Skipping team and continuing.')
         except KeyError:
             print('There is a problem with your ' +

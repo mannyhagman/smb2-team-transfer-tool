@@ -37,6 +37,7 @@ def create_team_pack():
     teams = _get_team_files()
     team_data_list = []
     guids = set()
+    print('Choose teams to include in the team pack.')
     for team in teams:
         data = util.file.common.import_file(team,
                                             util.file.types.FileTypes.TEAM)
