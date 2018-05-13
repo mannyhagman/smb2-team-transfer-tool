@@ -49,7 +49,6 @@ def import_logo(save):
                                             util.file.types.FileTypes.LOGO)
 
         for item in data['logo_data']:
-            print(item[0])
             item[1] = team_guid
 
         try:
