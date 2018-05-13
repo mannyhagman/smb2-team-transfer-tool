@@ -1,7 +1,6 @@
-import util
 import sys
 import sqlite3
-import uuid
+import util
 
 
 def _get_logo_file():
@@ -44,18 +43,14 @@ def import_logo(save):
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team you wish to import the logo to.')
-        logo_guid = uuid.uuid4().bytes
         team_guid = util.db._get_team_guid(c)
         _clear_existing_data(c, team_guid)
         data = util.file.common.import_file(logo_file,
                                             util.file.types.FileTypes.LOGO)
 
         for item in data['logo_data']:
-            item[0] = logo_guid
+            print(item[0])
             item[1] = team_guid
-
-        for item in data['logo_attrs']:
-            item[0] = logo_guid
 
         try:
             _write_data_to_db(c, data)
