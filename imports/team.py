@@ -125,9 +125,11 @@ def import_team(save):
         data = util.file.common.import_file(team_file, file_type)
         try:
             if (file_type == util.file.types.FileTypes.TEAM):
+                team_name = data['team_data'][2]
                 _write_data_to_db(c, data)
             elif (file_type == util.file.types.FileTypes.TEAMPACK):
                 for item in data:
+                    team_name = item['team_data'][2]
                     _write_data_to_db(c, item)
         except KeyError:
             print('There is a problem with your ' +
@@ -138,8 +140,7 @@ def import_team(save):
             sys.exit(0)
         except sqlite3.IntegrityError:
             print('There has been a problem with the database.')
-            print('Are you trying to add a team that already exists?')
-            print('Or does a team with that name already exist?')
+            print('Does a team with that name (' + team_name + ') already exist?')
             print('Press Enter to exit.')
             input('')
             sys.exit(0)
