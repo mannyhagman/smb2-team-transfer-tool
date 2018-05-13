@@ -18,6 +18,7 @@ def main():
         print('2. Export a team')
         print('3. Create a team pack')
         print('4. Split a team pack')
+        print('5. Import a logo')
         print('6. Export a logo')
         print('b. Quit')
         decision = input('--> ')
@@ -33,6 +34,9 @@ def main():
                 success = True
             elif (decision.strip() == '4'):
                 exports.pack.split_team_pack()
+                success = True
+            elif (decision.strip() == '5'):
+                imports.logo.import_logo(save_file)
                 success = True
             elif (decision.strip() == '6'):
                 exports.logo.export_logo()
