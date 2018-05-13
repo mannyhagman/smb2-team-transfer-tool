@@ -4,5 +4,5 @@ from . import file  # noqa: F401
 from . import db  # noqa: F401
 
 
-class QuitException(Exception):
+class GoBackException(Exception):
     pass

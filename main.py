@@ -45,7 +45,7 @@ def main():
                 raise KeyboardInterrupt
             else:
                 print('You did not choose a valid option. Please try again.')
-        except util.QuitException:
+        except util.GoBackException:
             pass
 
     os.remove('database.sqlite')

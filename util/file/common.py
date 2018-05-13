@@ -153,7 +153,7 @@ def select_file(files, page=1, mchoice=False, all=False):
             elif (choice == 'd'):
                 return (None, cur_page)
             elif (choice == 'b'):
-                raise util.QuitException
+                raise util.GoBackException
             elif (choice == 'a'):
                 return (True, cur_page)
             else:
