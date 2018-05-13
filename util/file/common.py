@@ -109,21 +109,17 @@ def select_file(files, page=1, mchoice=False, all=False):
 
     cur_page = page
 
-    allowable_options = ['1', '2', '3', '4', '5', '6', '7', '8',
-                         '9', '0', 'b']
+    allowable_options = {'1', '2', '3', '4', '5', '6', '7', '8',
+                         '9', '0', 'b'}
     max_pages = math.ceil(len(files)/10)
     if (cur_page > max_pages):
         cur_page = max_pages
     select = False
 
     if (mchoice):
-        allowable_options.append('d')
+        allowable_options.add('d')
     if (all):
-        allowable_options.append('a')
-    if (cur_page > 1):
-        allowable_options.append('p')
-    if (cur_page < max_pages):
-        allowable_options.append('n')
+        allowable_options.add('a')
 
     while not select:
         print('Page ' + str(cur_page) + ' of team files')
@@ -136,9 +132,15 @@ def select_file(files, page=1, mchoice=False, all=False):
         for i in range(0, max_range):
             print(str(i) + '. ' + files[10*(cur_page-1) + i])
         if (cur_page > 1):
+            allowable_options.add('p')
             print('p. Previous page')
+        else:
+            allowable_options.discard('p')
         if (cur_page < max_pages):
+            allowable_options.add('n')
             print('n. Next page')
+        else:
+            allowable_options.discard('n')
         if (all):
             print('a. Export all')
         if (mchoice):
