@@ -139,6 +139,7 @@ def import_team(save):
         except sqlite3.IntegrityError:
             print('There has been a problem with the database.')
             print('Are you trying to add a team that already exists?')
+            print('Or does a team with that name already exist?')
             print('Press Enter to exit.')
             input('')
             sys.exit(0)
