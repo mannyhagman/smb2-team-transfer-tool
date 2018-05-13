@@ -43,7 +43,8 @@ def create_team_pack():
                                             util.file.types.FileTypes.TEAM)
         name = data['team_data'][2]
         if (name in names):
-            print('A team with name ' + team + ' appears to already be included.')
+            print('A team with name ' + team +
+                  ' appears to already be included. Skipping.')
         else:
             team_data_list.append(data)
             names.add(name)
