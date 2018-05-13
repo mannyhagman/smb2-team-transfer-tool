@@ -5,7 +5,10 @@ import sqlite3
 
 def _get_team_file():
     """Collects and allows the user to choose which team file to import"""
-    team_files = util.file.common.get_team_files_list(True, True)
+    team_files = util.file.common.get_team_files_list([util.file.types.
+                                                       FileTypes.TEAM,
+                                                       util.file.types.
+                                                       FileTypes.TEAMPACK])
 
     file, page = util.file.common.select_file(team_files, 1)
 

@@ -4,7 +4,8 @@ import sys
 
 def _get_team_files():
     """Collects and allows the user to choose which team files to combine"""
-    team_files = util.file.common.get_team_files_list(True, False)
+    team_files = util.file.common.get_team_files_list([util.file.types.
+                                                       FileTypes.TEAM])
 
     files_combine = []
 
@@ -53,7 +54,8 @@ def create_team_pack():
 
 
 def split_team_pack():
-    files = util.file.common.get_team_files_list(False, True)
+    files = util.file.common.get_team_files_list([util.file.types.
+                                                  FileTypes.TEAMPACK])
 
     file_choice, page = util.file.common.select_file(files, 1)
 
