@@ -51,8 +51,6 @@ def create_team_pack():
     util.file.common.export_file(team_data_list,
                                  util.file.types.FileTypes.TEAMPACK)
 
-    return True
-
 
 def split_team_pack():
     files = util.file.common.get_team_files_list(False, True)

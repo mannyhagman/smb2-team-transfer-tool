@@ -146,5 +146,3 @@ def import_team(save):
         raise KeyboardInterrupt from None
 
     util.save.save_data(save)
-
-    return True
