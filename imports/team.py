@@ -126,23 +126,29 @@ def import_team(save):
         try:
             if (file_type == util.file.types.FileTypes.TEAM):
                 team_name = data['team_data'][2]
-                _write_data_to_db(c, data)
+                try:
+                    _write_data_to_db(c, data)
+                except sqlite3.IntegrityError:
+                    print('There has been a problem with the database.')
+                    print('Does a team with that name (' + team_name + ') already exist?')
+                    print('Press Enter to exit.')
+                    input('')
+                    sys.exit(0)
             elif (file_type == util.file.types.FileTypes.TEAMPACK):
                 for item in data:
                     team_name = item['team_data'][2]
-                    _write_data_to_db(c, item)
+                    try:
+                         _write_data_to_db(c, item)
+                    except sqlite3.IntegrityError:
+                        print('There has been a problem with the database.')
+                        print('Does a team with that name (' + team_name + ') already exist?')
+                        print('Skipping team and continuing.')
         except KeyError:
             print('There is a problem with your ' +
                   util.file.types.extensions[file_type] + ' file.')
             print('Try redownloading or recreating your file.')
             print('If the problem persists, let the developer know.')
             print('Press Enter to exit.')
-            sys.exit(0)
-        except sqlite3.IntegrityError:
-            print('There has been a problem with the database.')
-            print('Does a team with that name (' + team_name + ') already exist?')
-            print('Press Enter to exit.')
-            input('')
             sys.exit(0)
         conn.commit()
         conn.close()
