@@ -23,8 +23,8 @@ extensions = {FileTypes.TEAM: '.team',
               FileTypes.TEAMPACK: '.teampack',
               FileTypes.LOGO: '.logo'}
 
-cur_ver = 1
+cur_ver = 2
 
-compat = {FileTypes.TEAM: [],
-          FileTypes.TEAMPACK: [],
-          FileTypes.LOGO: []}
+compat = {FileTypes.TEAM: [1],
+          FileTypes.TEAMPACK: [1],
+          FileTypes.LOGO: [1]}

@@ -14,13 +14,9 @@ def _process_data_ver1(data):
 
         for item in player:
             if (item[1] is None):
-                print('Colours')
-                print(item)
                 data['player_colour_data'][-1].append([x for x in item
                                                        if x is not None])
             else:
-                print('Options')
-                print(item)
                 data['player_option_data'][-1].append([x for x in item
                                                        if x is not None])
 

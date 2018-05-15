@@ -32,14 +32,20 @@ def _fetch_data(c, team_guid):
         player_ids.append((new_id[0], guid))
     data['player_ids'] = player_ids
 
-    # t_baseball_player_attributes
-    player_attr_data_all = []
+    # t_baseball_player_options AND t_baseball_player_colors
+    player_option_data = []
+    player_colour_data = []
     for id_ in player_ids:
-        c.execute('SELECT * FROM t_baseball_player_attributes WHERE '
+        c.execute('SELECT * FROM t_baseball_player_options WHERE '
                   'baseballPlayerLocalID = ?', (id_[0],))
-        player_attr_data = c.fetchall()
-        player_attr_data_all.append(player_attr_data)
-    data['player_attr_data'] = player_attr_data_all
+        player_options = c.fetchall()
+        c.execute('SELECT * FROM t_baseball_player_colors WHERE '
+                  'baseballPlayerLocalID = ?', (id_[0],))
+        player_colours = c.fetchall()
+        player_option_data.append(player_options)
+        player_colour_data.append(player_colours)
+    data['player_colour_data'] = player_colour_data
+    data['player_option_data'] = player_option_data
 
     # t_lineups
     c.execute('SELECT * FROM t_lineups WHERE teamGUID = ?', (team_guid,))
