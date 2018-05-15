@@ -130,7 +130,7 @@ def select_file(files, page=1, mchoice=False, all=False):
 
     while not select:
         print('')
-        print('Page ' + str(cur_page) + ' of team files')
+        print('Page ' + str(cur_page) + ' of files')
         print('Choose an option.')
         max_range = 10
         if(cur_page == max_pages):
