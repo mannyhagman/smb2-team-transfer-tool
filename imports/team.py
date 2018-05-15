@@ -54,12 +54,20 @@ def _write_data_to_db(c, data):
     c.executemany('INSERT INTO t_baseball_player_local_ids VALUES (?, ?)',
                   player_ids_new)
 
-    # t_baseball_player_attributes
-    player_attr_data = data['player_attr_data']
-    for player in player_attr_data:
+    # t_baseball_player_colors
+    player_colour_data = data['player_colour_data']
+    for player in player_colour_data:
         for item in player:
-            c.execute('INSERT INTO t_baseball_player_attributes VALUES'
-                      '(?, ?, ?, ?, ?, ?, ?)',
+            c.execute('INSERT INTO t_baseball_player_colors VALUES'
+                      '(?, ?, ?, ?)',
+                      [player_ids_dict[item[0]]] + item[1:])
+
+    # t_baseball_player_options
+    player_colour_data = data['player_option_data']
+    for player in player_colour_data:
+        for item in player:
+            c.execute('INSERT INTO t_baseball_player_options VALUES'
+                      '(?, ?, ?, ?)',
                       [player_ids_dict[item[0]]] + item[1:])
 
     # t_lineups
