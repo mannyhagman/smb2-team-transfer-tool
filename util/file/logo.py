@@ -30,6 +30,20 @@ def import_logo(file):
 
     if util.file.common.is_file_compatible(data,
                                            util.file.types.FileTypes.TEAM):
+        new_data = {'logo_data': [], 'logo_attrs': []}
+
+        guid_map = {}
+
+        for item in data['logo_data']:
+            guid_map[item[0]] = uuid.uuid4().bytes
+            new_data['logo_data'].append([guid_map[item[0]]] + item[1:])
+
+        for data_piece in data['logo_attrs']:
+            for item in data_piece:
+                new_data['logo_attrs'].append([[guid_map[item[0]]] + item[1:]])
+
+        new_data['version'] = 2
+
         return data
     else:
         print('This data is incompatible with the current version of '
