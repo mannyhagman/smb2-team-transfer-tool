@@ -3,6 +3,7 @@ import sys
 import util
 import exports
 import imports
+import traceback
 
 
 def main():
@@ -63,4 +64,8 @@ if __name__ == '__main__':
         os.remove('database.sqlite')
         print('Press Enter to close.')
         input('')
-        sys.exit(0)
+    except Exception:
+        traceback.print_exc()
+        print('This should be reported as a bug.')
+        print('Press Enter to exit.')
+        input('')
