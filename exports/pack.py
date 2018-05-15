@@ -41,6 +41,7 @@ def create_team_pack():
     for team in teams:
         data = util.file.common.import_file(team,
                                             util.file.types.FileTypes.TEAM)
+        data['version'] = 2
         name = data['team_data'][2]
         if (name in names):
             print('A team with name ' + team +

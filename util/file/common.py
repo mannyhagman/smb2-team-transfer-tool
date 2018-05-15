@@ -20,10 +20,17 @@ def is_file_compatible(data, type):
         version = data['version']
     except KeyError:
         version = 1
-    if version == types.cur_ver or version in types.compat[type][version]:
+    if version == types.cur_ver or version in types.compat[type]:
         return True
     else:
         return False
+
+
+def get_data_version(data):
+    try:
+        return data['version']
+    except KeyError:
+        return 1
 
 
 def get_file_name(file, type):

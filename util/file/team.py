@@ -8,6 +8,8 @@ def _process_data_ver1(data):
     data['player_option_data'] = []
     data['player_colour_data'] = []
 
+    print(data.keys())
+
     for player in data['player_attr_data']:
         data['player_option_data'].append([])
         data['player_colour_data'].append([])
@@ -49,7 +51,7 @@ def import_team(file):
 
     if util.file.common.is_file_compatible(data,
                                            util.file.types.FileTypes.TEAM):
-        if(data['version'] == 1):
+        if(util.file.common.get_data_version(data) == 1):
             return _process_data_ver1(data)
 
         return data

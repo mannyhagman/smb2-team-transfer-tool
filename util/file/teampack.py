@@ -40,7 +40,18 @@ def import_team_pack(file):
 
     if util.file.common.is_file_compatible(data,
                                            util.file.types.FileTypes.TEAMPACK):
-        return data['data']
+
+        data_new = []
+
+        for item in data['data']:
+            if (util.file.common.get_data_version(item) == 1):
+                print(item.keys())
+                data_new.append(util.file.team._process_data_ver1(item))
+            else:
+                data_new.append(item)
+
+        return data_new
+
     else:
         print('This data is incompatible with the current version of '
               'the tool.')
