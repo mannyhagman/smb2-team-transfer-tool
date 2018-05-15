@@ -8,8 +8,6 @@ def _process_data_ver1(data):
     data['player_option_data'] = []
     data['player_colour_data'] = []
 
-    print(data.keys())
-
     for player in data['player_attr_data']:
         data['player_option_data'].append([])
         data['player_colour_data'].append([])
