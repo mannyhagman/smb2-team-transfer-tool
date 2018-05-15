@@ -2,6 +2,7 @@
 import util
 import json
 import sys
+import uuid
 
 
 def export_logo(data):
