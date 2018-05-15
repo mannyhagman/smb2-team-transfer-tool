@@ -45,7 +45,6 @@ def import_team_pack(file):
 
         for item in data['data']:
             if (util.file.common.get_data_version(item) == 1):
-                print(item.keys())
                 data_new.append(util.file.team._process_data_ver1(item))
             else:
                 data_new.append(item)
