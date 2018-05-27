@@ -9,6 +9,7 @@ class FileTypes(Enum):
     TEAM = 0
     TEAMPACK = 1
     LOGO = 2
+    CSV = 3
 
 
 exports = {FileTypes.TEAM: team.export_team,
@@ -21,7 +22,8 @@ imports = {FileTypes.TEAM: team.import_team,
 
 extensions = {FileTypes.TEAM: '.team',
               FileTypes.TEAMPACK: '.teampack',
-              FileTypes.LOGO: '.logo'}
+              FileTypes.LOGO: '.logo',
+              FileTypes.CSV: '.csv'}
 
 cur_ver = 2
 
