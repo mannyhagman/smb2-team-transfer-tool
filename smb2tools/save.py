@@ -8,6 +8,7 @@ import shutil
 
 def _get_save_location():
     """Get the OS-dependent save location"""
+
     save_name = 'savedata.sav'
     save_dir = '~\AppData\local\Metalhead\Super Mega Baseball 2'
     if os.name == 'nt':
@@ -30,21 +31,14 @@ def _extract_save_file(save_files):
     """Does basic error checking and decompresses the save file."""
 
     if len(save_files) > 1:
-        print('Multiple save files! Quitting to avoid problems.')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(0)
+        raise TooManySavesException
     elif (len(save_files) == 0):
-        print('No save data found.')
-        print('Press Enter to exit.')
-        input('')
-        sys.exit(0)
+        raise NoSaveException
 
     in_fname = os.path.join(save_files[0][0], save_files[0][1])
 
     with open(in_fname, 'rb') as in_data:
         in_file = in_data.read()
-    print('Found save data file.')
 
     decomp_in_file = zlib.decompress(in_file)
     f = open('database.sqlite', 'wb')
@@ -52,7 +46,7 @@ def _extract_save_file(save_files):
     f.close()
 
 
-def load_data():
+def load():
     """Loads the save data and returns the save location.
 
     Returns a tuple with directory and save name.
@@ -65,7 +59,7 @@ def load_data():
     return save_files[0]
 
 
-def save_data(save_file):
+def save(save_file):
     """Saves the modified database
 
     Creates a copy then moves it when written
@@ -84,7 +78,7 @@ def save_data(save_file):
                os.path.join(save_file[0], save_file[1]))
 
 
-def backup_data(save_file):
+def backup(save_file):
     """Backs up the original save data
 
     Copies savedata.sav to savedata_backup.sav
@@ -94,4 +88,3 @@ def backup_data(save_file):
     """
     shutil.copy2(os.path.join(save_file[0], save_file[1]),
                  os.path.join(save_file[0], 'savedata_backup.sav'))
-    print('Backup of savedata made to savedata_backup.sav')
