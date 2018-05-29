@@ -36,6 +36,7 @@ def import_logo(save):
 
     # Back up original save data
     util.save.backup_data(save)
+    print('Backup of savedata made to savedata_backup.sav')
 
     logo_file = _get_logo_file()
 

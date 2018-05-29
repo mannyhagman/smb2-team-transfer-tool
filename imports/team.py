@@ -119,6 +119,7 @@ def import_team(save):
 
     # Back up original save data
     util.save.backup_data(save)
+    print('Backup of savedata made to savedata_backup.sav')
 
     team_file = _get_team_file()
 

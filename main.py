@@ -3,13 +3,27 @@ import util
 import exports
 import imports
 import traceback
+import smb2tools as tools
 
 
 def main():
 
     print("Ferrea's SMB2 Team Transfer Tool v0.3 beta")
 
-    save_file = util.save.load_data()
+    try:
+        save_file = tools.save.load()
+    except NoSaveException:
+        print('No save data found.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
+    except TooManySavesException:
+        print('Multiple save files! Quitting to avoid problems.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
+
+    print('Found save data file.')
 
     success = False
     while not success:
@@ -24,22 +38,22 @@ def main():
         decision = input('--> ')
         try:
             if (decision.strip() == '1'):
-                imports.team.import_team(save_file)
+                imports.team(save_file)
                 success = True
             elif (decision.strip() == '2'):
-                exports.team.export_team()
+                exports.team()
                 success = True
             elif (decision.strip() == '3'):
-                exports.pack.create_team_pack()
+                exports.create_pack()
                 success = True
             elif (decision.strip() == '4'):
-                exports.pack.split_team_pack()
+                exports.split_pack()
                 success = True
             elif (decision.strip() == '5'):
-                imports.logo.import_logo(save_file)
+                imports.logo(save_file)
                 success = True
             elif (decision.strip() == '6'):
-                exports.logo.export_logo()
+                exports.logo()
                 success = True
             elif (decision.strip() == 'b'):
                 raise KeyboardInterrupt
