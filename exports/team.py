@@ -116,4 +116,6 @@ def export_team():
         conn.close()
         raise KeyboardInterrupt from None
 
-    util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
+    fname = util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
+
+    print('Saving file as ' + fname)

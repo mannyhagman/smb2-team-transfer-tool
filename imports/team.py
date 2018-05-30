@@ -131,7 +131,15 @@ def import_team(save):
     try:
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
-        data = util.file.common.import_file(team_file, file_type)
+        try:
+            data = util.file.common.import_file(team_file, file_type)
+        except IncompatibleException:
+            print('This data is incompatible with the current version of '
+                  'the tool.')
+            print('You may have to convert it to the new format or recreate it.')
+            print('Press Enter to exit.')
+            input('')
+            sys.exit(0)
         try:
             if (file_type == util.file.types.FileTypes.TEAM):
                 team_name = data['team_data'][2]
