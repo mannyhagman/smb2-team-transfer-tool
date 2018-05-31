@@ -1,9 +1,4 @@
-"""Exports a team to a .team file"""
-import util
-import sqlite3
-
-
-def _fetch_data(c, team_guid):
+def team(c, team_guid):
     """Fetches the data needed from the database"""
 
     data = {}
@@ -100,22 +95,3 @@ def _fetch_data(c, team_guid):
     data['logo_attrs'] = logo_attrs_all
 
     return data
-
-
-def export_team():
-    """The main function that controls exporting teams"""
-
-    try:
-        conn = sqlite3.connect('database.sqlite')
-        c = conn.cursor()
-        print('Type the name of the team you wish to export.')
-        team_guid = util.db._get_team_guid(c)
-        data = _fetch_data(c, team_guid)
-        conn.close()
-    except KeyboardInterrupt:
-        conn.close()
-        raise KeyboardInterrupt from None
-
-    fname = util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
-
-    print('Saving file as ' + fname)
