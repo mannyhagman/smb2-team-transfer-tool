@@ -4,8 +4,14 @@ import sys
 
 def _get_team_files():
     """Collects and allows the user to choose which team files to combine"""
-    team_files = util.file.common.get_team_files_list([util.file.types.
-                                                       FileTypes.TEAM])
+    try:
+        team_files = util.file.common.get_team_files_list([util.file.types.
+                                                           FileTypes.TEAM])
+    except NoFilesException:
+        print('No valid files were found.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
 
     files_combine = []
 
@@ -39,8 +45,16 @@ def create_team_pack():
     names = set()
     print('Choose teams to include in the team pack.')
     for team in teams:
-        data = util.file.common.import_file(team,
-                                            util.file.types.FileTypes.TEAM)
+        try:
+            data = util.file.common.import_file(team,
+                                                util.file.types.FileTypes.TEAM)
+        except IncompatibleException as e:
+            team = str(e)
+            print('One of the files is not compatible with the current tool.')
+            print('It contains the team ' + team + '.')
+            print('Press Enter to exit.')
+            input('')
+            sys.exit(0)
         data['version'] = 2
         name = data['team_data'][2]
         if (name in names):

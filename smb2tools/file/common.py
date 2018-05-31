@@ -102,13 +102,15 @@ def get_team_files_list(types):
 def export_file(data, type):
     """Exports the file to a shareable format
 
+    Returns the name of the file that was saved to
+
     Arguments:
     data - the dictionary to be exported
     type - the type of file to write
     """
 
     # The exports dict holds a callable, which we then call
-    types.exports[type](data)
+    return types.exports[type](data)
 
 
 def import_file(file_name, type):
