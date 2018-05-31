@@ -130,3 +130,21 @@ def split_team_pack():
     else:
         for item in files_export:
             util.file.common.export_file(item, util.file.types.FileTypes.TEAM)
+
+def export_logo():
+    """The main function that controls exporting logos"""
+
+    try:
+        conn = sqlite3.connect('database.sqlite')
+        c = conn.cursor()
+        print('Type the name of the team whose logo you wish to export.')
+        team_guid = util.db._get_team_guid(c)
+        data = _fetch_data(c, team_guid)
+        conn.close()
+    except KeyboardInterrupt:
+        conn.close()
+        raise KeyboardInterrupt from None
+
+    util.file.common.export_file(data, util.file.types.FileTypes.LOGO)
+
+    print('Saving file as ' + fname)

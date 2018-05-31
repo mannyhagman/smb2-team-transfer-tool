@@ -95,3 +95,32 @@ def team(c, team_guid):
     data['logo_attrs'] = logo_attrs_all
 
     return data
+
+def _fetch_data(c, team_guid):
+    """Fetches the data needed from the database"""
+
+    data = {}
+
+    # t_teams
+    c.execute('SELECT * FROM t_teams WHERE GUID = ?', (team_guid,))
+    team_data = c.fetchone()
+    data['team_data'] = team_data
+
+    # t_team_logos
+    c.execute('SELECT * FROM t_team_logos WHERE teamGUID = ?', (team_guid,))
+    logo_data = c.fetchall()
+    logo_guids = []
+    for item in logo_data:
+        logo_guids.append(item[0])
+    data['logo_data'] = logo_data
+
+    # t_team_logo_attributes
+    logo_attrs_all = []
+    for guid in logo_guids:
+        c.execute('SELECT * FROM t_team_logo_attributes WHERE '
+                  'teamLogoGUID = ?', (guid,))
+        logo_attrs = c.fetchall()
+        logo_attrs_all.append(logo_attrs)
+    data['logo_attrs'] = logo_attrs_all
+
+    return data
