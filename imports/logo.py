@@ -46,8 +46,16 @@ def import_logo(save):
         print('Type the name of the team you wish to import the logo to.')
         team_guid = util.db._get_team_guid(c)
         _clear_existing_data(c, team_guid)
-        data = util.file.common.import_file(logo_file,
-                                            util.file.types.FileTypes.LOGO)
+        try:
+            data = util.file.common.import_file(logo_file,
+                                                util.file.types.FileTypes.LOGO)
+        except IncompatibleException:
+        print('This data is incompatible with the current version of '
+              'the tool.')
+        print('You may have to convert it to the new format or recreate it.')
+        print('Press Enter to exit.')
+        input('')
+        sys.exit(0)
 
         for item in data['logo_data']:
             item[1] = team_guid

@@ -48,3 +48,5 @@ def export_logo():
         raise KeyboardInterrupt from None
 
     util.file.common.export_file(data, util.file.types.FileTypes.LOGO)
+
+    print('Saving file as ' + fname)
