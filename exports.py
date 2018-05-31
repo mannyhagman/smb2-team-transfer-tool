@@ -1,6 +1,18 @@
-import util
-import sys
+def team():
+    """The main function that controls exporting teams"""
 
+    try:
+        conn = sqlite3.connect('database.sqlite')
+        c = conn.cursor()
+        print('Type the name of the team you wish to export.')
+        team_guid = util.db._get_team_guid(c)
+        data = _fetch_data(c, team_guid)
+        conn.close()
+    except KeyboardInterrupt:
+        conn.close()
+        raise KeyboardInterrupt from None
+
+    util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
 
 def _get_team_files():
     """Collects and allows the user to choose which team files to combine"""
@@ -38,7 +50,6 @@ def _get_team_files():
 
     return files_combine
 
-
 def create_team_pack():
     teams = _get_team_files()
     team_data_list = []
@@ -69,7 +80,6 @@ def create_team_pack():
     team_data_list.append({'name': name})
     util.file.common.export_file(team_data_list,
                                  util.file.types.FileTypes.TEAMPACK)
-
 
 def split_team_pack():
     files = util.file.common.get_team_files_list([util.file.types.
