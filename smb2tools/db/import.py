@@ -1,20 +1,3 @@
-import util
-import sys
-import sqlite3
-
-
-def _get_team_file():
-    """Collects and allows the user to choose which team file to import"""
-    team_files = util.file.common.get_team_files_list([util.file.types.
-                                                       FileTypes.TEAM,
-                                                       util.file.types.
-                                                       FileTypes.TEAMPACK])
-
-    file, page = util.file.common.select_file(team_files, 1)
-
-    return file
-
-
 def _write_data_to_db(c, data):
     """Writes the data read from file into the DB"""
 
@@ -115,64 +98,20 @@ def _write_data_to_db(c, data):
                       '(?, ?, ?, ?, ?, ?, ?)', guid)
 
 
-def import_team(save):
+def _clear_existing_data(c, guid):
+    c.execute('DELETE FROM t_team_logos WHERE teamGUID = ?', (guid,))
 
-    # Back up original save data
-    util.save.backup_data(save)
-    print('Backup of savedata made to savedata_backup.sav')
 
-    team_file = _get_team_file()
+def _write_data_to_db(c, data):
+    """Writes the data read from file into the DB"""
 
-    if (team_file[-5:] == '.team'):
-        file_type = util.file.types.FileTypes.TEAM
-    elif (team_file[-9:] == '.teampack'):
-        file_type = util.file.types.FileTypes.TEAMPACK
+    # t_team_logos
+    logo_data = data['logo_data']
+    c.executemany('INSERT INTO t_team_logos VALUES '
+                  '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', logo_data)
 
-    try:
-        conn = sqlite3.connect('database.sqlite')
-        c = conn.cursor()
-        try:
-            data = util.file.common.import_file(team_file, file_type)
-        except IncompatibleException:
-            print('This data is incompatible with the current version of '
-                  'the tool.')
-            print('You may have to convert it to the new format or recreate it.')
-            print('Press Enter to exit.')
-            input('')
-            sys.exit(0)
-        try:
-            if (file_type == util.file.types.FileTypes.TEAM):
-                team_name = data['team_data'][2]
-                try:
-                    _write_data_to_db(c, data)
-                except sqlite3.IntegrityError:
-                    print('There has been a problem with the database.')
-                    print('Does a team with that name (' + team_name +
-                          ') already exist?')
-                    print('Press Enter to exit.')
-                    input('')
-                    sys.exit(0)
-            elif (file_type == util.file.types.FileTypes.TEAMPACK):
-                for item in data:
-                    team_name = item['team_data'][2]
-                    try:
-                        _write_data_to_db(c, item)
-                    except sqlite3.IntegrityError:
-                        print('There has been a problem with the database.')
-                        print('Does a team with that name (' + team_name +
-                              ') already exist?')
-                        print('Skipping team and continuing.')
-        except KeyError:
-            print('There is a problem with your ' +
-                  util.file.types.extensions[file_type] + ' file.')
-            print('Try redownloading or recreating your file.')
-            print('If the problem persists, let the developer know.')
-            print('Press Enter to exit.')
-            sys.exit(0)
-        conn.commit()
-        conn.close()
-    except KeyboardInterrupt:
-        conn.close()
-        raise KeyboardInterrupt from None
-
-    util.save.save_data(save)
+    # t_team_logo_attributes
+    logo_attrs = data['logo_attrs']
+    for guid in logo_attrs:
+        c.executemany('INSERT INTO t_team_logo_attributes VALUES '
+                      '(?, ?, ?, ?, ?, ?, ?)', guid)
