@@ -96,7 +96,8 @@ def team(c, team_guid):
 
     return data
 
-def _fetch_data(c, team_guid):
+
+def logo(c, team_guid):
     """Fetches the data needed from the database"""
 
     data = {}
