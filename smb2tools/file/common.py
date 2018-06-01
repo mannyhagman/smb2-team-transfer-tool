@@ -6,7 +6,7 @@ import math
 import util
 
 
-def is_file_compatible(data, type):
+def is_compatible(data, type):
     """Determines if a file is compatible with the tool.
 
     Returns a boolean.
@@ -26,7 +26,7 @@ def is_file_compatible(data, type):
         return False
 
 
-def get_data_version(data):
+def get_version(data):
     """Gets the version of the file structure.
 
     Returns the version tag of the data, else returns 1.
@@ -68,7 +68,7 @@ def get_file_name(file, type):
     return fname
 
 
-def get_team_files_list(types):
+def get_file_list(types):
     """Collects and allows the user to choose which team files to combine
 
     Arguments:
@@ -99,7 +99,7 @@ def get_team_files_list(types):
     return files
 
 
-def export_file(data, type):
+def save(data, type):
     """Exports the file to a shareable format
 
     Returns the name of the file that was saved to
@@ -113,8 +113,10 @@ def export_file(data, type):
     return types.exports[type](data)
 
 
-def import_file(file_name, type):
+def load(file_name, type):
     """Imports data from a JSON file
+
+    Returns the data loaded from file.
 
     Arguments:
     file_name - the name of the file to import
