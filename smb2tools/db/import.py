@@ -1,4 +1,4 @@
-def _write_data_to_db(c, data):
+def team(c, data):
     """Writes the data read from file into the DB"""
 
     # t_teams
@@ -98,12 +98,10 @@ def _write_data_to_db(c, data):
                       '(?, ?, ?, ?, ?, ?, ?)', guid)
 
 
-def _clear_existing_data(c, guid):
-    c.execute('DELETE FROM t_team_logos WHERE teamGUID = ?', (guid,))
-
-
-def _write_data_to_db(c, data):
+def logo(c, data, guid):
     """Writes the data read from file into the DB"""
+
+    c.execute('DELETE FROM t_team_logos WHERE teamGUID = ?', (guid,))
 
     # t_team_logos
     logo_data = data['logo_data']
