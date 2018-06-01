@@ -1,17 +1,20 @@
-class GoBackException(Exception):
+class Error(Exception):
     pass
 
-class NoSaveException(Exception):
+class MenuExit(Exception):
     pass
 
-class TooManySavesException(Exception):
+class NoSaveError(Exception):
     pass
 
-class NoExtensionsException(Exception):
+class TooManySavesError(Exception):
     pass
 
-class NoFilesException(Exception):
+class NoExtensionsError(Exception):
     pass
 
-class IncompatibleException(Exception):
+class NoFilesFound(Exception):
+    pass
+
+class IncompatibleError(Exception):
     pass
