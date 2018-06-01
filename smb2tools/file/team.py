@@ -1,10 +1,10 @@
 """A module for importing and exporting team data files"""
 import util
 import json
-import sys
 
 
 def _process_data_ver1(data):
+    """Convert version 1 team data to current version."""
     data['player_option_data'] = []
     data['player_colour_data'] = []
 
@@ -25,7 +25,7 @@ def _process_data_ver1(data):
     return data
 
 
-def export_team(data):
+def save(data):
     """Exports the team data to file
 
     Returns the name of the file that was created.
@@ -47,7 +47,14 @@ def export_team(data):
     return fname
 
 
-def import_team(file):
+def load(file):
+    """Imports the team data from file
+
+    Returns the data imported from file.
+
+    Arguments:
+    file - the file to load data from
+    """
     with open(file) as team_file:
         data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
 
@@ -59,4 +66,3 @@ def import_team(file):
         return data
     else:
         raise IncompatibleException
-
