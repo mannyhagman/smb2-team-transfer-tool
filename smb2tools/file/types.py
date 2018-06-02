@@ -1,8 +1,6 @@
 """A module that holds information about file types"""
 from enum import Enum
-from . import team
-from . import teampack
-from . import logo
+from smb2tools.file import team, pack, logo
 
 
 class FileTypes(Enum):
@@ -12,13 +10,13 @@ class FileTypes(Enum):
     CSV = 3
 
 
-exports = {FileTypes.TEAM: team.export_team,
-           FileTypes.TEAMPACK: teampack.export_team_pack,
-           FileTypes.LOGO: logo.export_logo}
+exports = {FileTypes.TEAM: team.save,
+           FileTypes.TEAMPACK: pack.save,
+           FileTypes.LOGO: logo.save}
 
-imports = {FileTypes.TEAM: team.import_team,
-           FileTypes.TEAMPACK: teampack.import_team_pack,
-           FileTypes.LOGO: logo.import_logo}
+imports = {FileTypes.TEAM: team.load,
+           FileTypes.TEAMPACK: pack.load,
+           FileTypes.LOGO: logo.load}
 
 extensions = {FileTypes.TEAM: '.team',
               FileTypes.TEAMPACK: '.teampack',

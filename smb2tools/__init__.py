@@ -1,6 +1,3 @@
-from . import file
-from . import db
-from . import exceptions
-from . import save
+from smb2tools import file, db, exceptions, save
 
 __all__ = [file, db, exceptions, save]

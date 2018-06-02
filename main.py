@@ -1,6 +1,5 @@
 import sys
 import os
-import util
 import exports
 import imports
 import traceback
@@ -60,7 +59,7 @@ def main():
                 raise KeyboardInterrupt
             else:
                 print('That is not a valid option. Please try again.')
-        except util.GoBackException:
+        except tools.exceptions.GoBackException:
             pass
 
     os.remove('database.sqlite')
