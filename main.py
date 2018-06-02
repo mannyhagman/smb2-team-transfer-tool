@@ -12,12 +12,12 @@ def main():
 
     try:
         save_file = tools.save.load()
-    except NoSaveException:
+    except exceptions.NoSavesError:
         print('No save data found.')
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
-    except TooManySavesException:
+    except exceptions.TooManySavesError:
         print('Multiple save files! Quitting to avoid problems.')
         print('Press Enter to exit.')
         input('')

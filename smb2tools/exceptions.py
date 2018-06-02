@@ -4,7 +4,7 @@ class Error(Exception):
 class MenuExit(Exception):
     pass
 
-class NoSaveError(Exception):
+class NoSavesError(Exception):
     pass
 
 class TooManySavesError(Exception):

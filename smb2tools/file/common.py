@@ -78,7 +78,7 @@ def get_file_list(types):
     if(types):
         exts = [util.file.types.extensions[t] for t in types]
     else:
-        raise NoExtensionException
+        raise exceptions.NoExtensionsError
 
     exts = tuple(exts)
 
@@ -94,7 +94,7 @@ def get_file_list(types):
 
     files = sorted(files)
     if(len(files) == 0):
-        raise NoFilesException
+        raise exceptions.NoFilesFound
 
     return files
 

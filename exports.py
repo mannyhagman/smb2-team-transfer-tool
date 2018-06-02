@@ -19,7 +19,7 @@ def _get_team_files():
     try:
         team_files = util.file.common.get_team_files_list([util.file.types.
                                                            FileTypes.TEAM])
-    except NoFilesException:
+    except exceptions.NoFilesFound:
         print('No valid files were found.')
         print('Press Enter to exit.')
         input('')
@@ -59,7 +59,7 @@ def create_team_pack():
         try:
             data = util.file.common.import_file(team,
                                                 util.file.types.FileTypes.TEAM)
-        except IncompatibleException as e:
+        except exceptions.IncompatibleError as e:
             print('One of the files is not compatible with the current tool.')
             print('It contains the team ' + e.team + '.')
             print('Press Enter to exit.')

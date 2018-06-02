@@ -47,4 +47,4 @@ def load(file):
 
         return data
     else:
-        raise IncompatibleException
+        raise exceptions.IncompatibleError

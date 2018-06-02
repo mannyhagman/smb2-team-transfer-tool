@@ -31,9 +31,9 @@ def _extract_save_file(save_files):
     """Does basic error checking and decompresses the save file."""
 
     if len(save_files) > 1:
-        raise TooManySavesException
+        raise exceptions.TooManySavesError
     elif (len(save_files) == 0):
-        raise NoSaveException
+        raise exceptions.NoSavesError
 
     in_fname = os.path.join(save_files[0][0], save_files[0][1])
 

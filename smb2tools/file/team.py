@@ -1,6 +1,6 @@
 """A module for importing and exporting team data files"""
-import util
 import json
+from .. import exceptions
 
 
 def _process_data_ver1(data):
@@ -65,4 +65,4 @@ def load(file):
 
         return data
     else:
-        raise IncompatibleException
+        raise exceptions.IncompatibleError

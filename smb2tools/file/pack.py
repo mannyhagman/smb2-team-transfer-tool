@@ -21,7 +21,7 @@ def save(data):
         if not util.file.common.is_file_compatible(item,
                                                    util.file.types.
                                                    FileTypes.TEAM):
-            raise IncompatibleException
+            raise exceptions.IncompatibleError
 
     data = {'version': util.file.types.cur_ver, 'data': data}
 
@@ -50,4 +50,4 @@ def load(file):
         return data_new
 
     else:
-        raise IncompatibleException
+        raise exceptions.IncompatibleError

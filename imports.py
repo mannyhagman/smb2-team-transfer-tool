@@ -90,7 +90,7 @@ def import_logo(save):
         try:
             data = util.file.common.import_file(logo_file,
                                                 util.file.types.FileTypes.LOGO)
-        except IncompatibleException:
+        except exceptions.IncompatibleError:
         print('This data is incompatible with the current version of '
               'the tool.')
         print('You may have to convert it to the new format or recreate it.')
