@@ -60,9 +60,8 @@ def create_team_pack():
             data = util.file.common.import_file(team,
                                                 util.file.types.FileTypes.TEAM)
         except IncompatibleException as e:
-            team = str(e)
             print('One of the files is not compatible with the current tool.')
-            print('It contains the team ' + team + '.')
+            print('It contains the team ' + e.team + '.')
             print('Press Enter to exit.')
             input('')
             sys.exit(0)
