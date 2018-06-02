@@ -3,12 +3,9 @@ import sqlite3
 import smb2tools as tools
 
 
-def _get_team_file():
-    """Collects and allows the user to choose which team file to import"""
-    team_files = tools.file.common.get_team_files_list([tools.file.
-                                                        FileTypes.TEAM,
-                                                        tools.file.
-                                                        FileTypes.TEAMPACK])
+def _get_file(types):
+    """Collects and allows the user to choose which file to import"""
+    team_files = tools.file.common.get_team_files_list(types)
 
     file, page = tools.file.common.select_file(team_files, 1)
 
@@ -21,7 +18,8 @@ def team(save):
     tools.save.backup_data(save)
     print('Backup of savedata made to savedata_backup.sav')
 
-    team_file = _get_team_file()
+    team_file = _get_file([tools.file.FileTypes.TEAM,
+                           tools.file.FileTypes.TEAMPACK])
 
     if (team_file[-5:] == '.team'):
         file_type = tools.file.FileTypes.TEAM
@@ -70,23 +68,13 @@ def team(save):
     tools.save.save_data(save)
 
 
-def _get_logo_file():
-    """Collects and allows the user to choose which team logo to import"""
-    team_files = tools.file.common.get_team_files_list([tools.file.
-                                                       FileTypes.LOGO])
-
-    file, page = tools.file.common.select_file(team_files, 1)
-
-    return file
-
-
 def logo(save):
 
     # Back up original save data
     tools.save.backup_data(save)
     print('Backup of savedata made to savedata_backup.sav')
 
-    logo_file = _get_logo_file()
+    logo_file = _get_file([tools.file.FileTypes.LOGO])
 
     try:
         conn = sqlite3.connect('database.sqlite')
