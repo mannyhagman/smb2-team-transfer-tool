@@ -3,7 +3,7 @@
 import os
 import zlib
 import shutil
-from smb2tools import exceptions
+from smb2tools import exceptions, db
 
 
 def _get_save_location():
@@ -58,6 +58,8 @@ def load():
 
     _extract_save_file(save_files)
 
+    db.common.setup()
+
     return save_files[0]
 
 
@@ -70,6 +72,8 @@ def save(save_file):
     save_file - A tuple with directory and save name
     """
 
+    db.common.teardown()
+
     with open('database.sqlite', 'rb') as new_data:
         new_save = new_data.read()
     zlib_save = zlib.compress(new_save)
@@ -78,6 +82,8 @@ def save(save_file):
     f.close()
     os.replace(os.path.join(save_file[0], 'savedata_new.sav'),
                os.path.join(save_file[0], save_file[1]))
+
+    db.common.setup()
 
 
 def backup(save_file):

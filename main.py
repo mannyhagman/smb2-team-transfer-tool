@@ -74,6 +74,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('')
         print('Quitting!')
+        tools.db.common.teardown()
         os.remove('database.sqlite')
         print('Press Enter to close.')
         input('')
@@ -81,4 +82,6 @@ if __name__ == '__main__':
         traceback.print_exc()
         print('This should be reported as a bug.')
         print('Press Enter to exit.')
+        tools.db.common.teardown()
+        os.remove('database.sqlite')
         input('')

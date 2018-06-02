@@ -7,16 +7,9 @@ import util
 def team():
     """The main function that controls exporting teams"""
 
-    try:
-        conn = sqlite3.connect('database.sqlite')
-        c = conn.cursor()
-        print('Type the name of the team you wish to export.')
-        team_guid = util._get_team_guid(c)
-        data = tools.db.exports.team(c, team_guid)
-        conn.close()
-    except KeyboardInterrupt:
-        conn.close()
-        raise KeyboardInterrupt from None
+    print('Type the name of the team you wish to export.')
+    team_guid = util._get_team_guid(c)
+    data = tools.db.exports.team(team_guid)
 
     tools.file.common.save(data, tools.file.FileTypes.TEAM)
 
@@ -143,16 +136,9 @@ def split_pack():
 def logo():
     """The main function that controls exporting logos"""
 
-    try:
-        conn = sqlite3.connect('database.sqlite')
-        c = conn.cursor()
-        print('Type the name of the team whose logo you wish to export.')
-        team_guid = util._get_team_guid(c)
-        data = tools.db.exports.logo(c, team_guid)
-        conn.close()
-    except KeyboardInterrupt:
-        conn.close()
-        raise KeyboardInterrupt from None
+    print('Type the name of the team whose logo you wish to export.')
+    team_guid = util._get_team_guid(c)
+    data = tools.db.exports.logo(team_guid)
 
     fname = tools.file.common.save(data,
                                    tools.file.FileTypes.LOGO)
