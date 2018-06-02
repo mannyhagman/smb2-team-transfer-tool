@@ -2,8 +2,8 @@
 
 import os
 import zlib
-import sys
 import shutil
+from smb2tools import exceptions
 
 
 def _get_save_location():

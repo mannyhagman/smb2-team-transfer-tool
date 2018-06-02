@@ -1,3 +1,8 @@
+import sys
+import sqlite3
+import smb2tools as tools
+
+
 def team():
     """The main function that controls exporting teams"""
 
@@ -5,21 +10,22 @@ def team():
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team you wish to export.')
-        team_guid = util.db._get_team_guid(c)
-        data = _fetch_data(c, team_guid)
+        team_guid = tools.db._get_team_guid(c)
+        data = tools.db.exports.team(c, team_guid)
         conn.close()
     except KeyboardInterrupt:
         conn.close()
         raise KeyboardInterrupt from None
 
-    util.file.common.export_file(data, util.file.types.FileTypes.TEAM)
+    tools.file.common.export_file(data, tools.file.FileTypes.TEAM)
+
 
 def _get_team_files():
     """Collects and allows the user to choose which team files to combine"""
     try:
-        team_files = util.file.common.get_team_files_list([util.file.types.
+        team_files = tools.file.common.get_team_files_list([tools.file.
                                                            FileTypes.TEAM])
-    except exceptions.NoFilesFound:
+    except tools.exceptions.NoFilesFound:
         print('No valid files were found.')
         print('Press Enter to exit.')
         input('')
@@ -31,8 +37,8 @@ def _get_team_files():
 
     page = 1
     while not done:
-        file, page = util.file.common.select_file(team_files, page,
-                                                  mchoice=True)
+        file, page = tools.file.common.select_file(team_files, page,
+                                                   mchoice=True)
         if file is None:
             done = True
         else:
@@ -50,6 +56,7 @@ def _get_team_files():
 
     return files_combine
 
+
 def create_team_pack():
     teams = _get_team_files()
     team_data_list = []
@@ -57,9 +64,9 @@ def create_team_pack():
     print('Choose teams to include in the team pack.')
     for team in teams:
         try:
-            data = util.file.common.import_file(team,
-                                                util.file.types.FileTypes.TEAM)
-        except exceptions.IncompatibleError as e:
+            data = tools.file.common.import_file(team,
+                                                 tools.file.FileTypes.TEAM)
+        except tools.exceptions.IncompatibleError as e:
             print('One of the files is not compatible with the current tool.')
             print('It contains the team ' + e.team + '.')
             print('Press Enter to exit.')
@@ -77,17 +84,18 @@ def create_team_pack():
     print('Choose a name for the file.')
     name = input('--> ').strip()
     team_data_list.append({'name': name})
-    util.file.common.export_file(team_data_list,
-                                 util.file.types.FileTypes.TEAMPACK)
+    tools.file.common.export_file(team_data_list,
+                                  tools.file.FileTypes.TEAMPACK)
+
 
 def split_team_pack():
-    files = util.file.common.get_team_files_list([util.file.types.
-                                                  FileTypes.TEAMPACK])
+    files = tools.file.common.get_team_files_list([tools.file.
+                                                   FileTypes.TEAMPACK])
 
-    file_choice, page = util.file.common.select_file(files, 1)
+    file_choice, page = tools.file.common.select_file(files, 1)
 
-    data = util.file.common.import_file(file_choice,
-                                        util.file.types.FileTypes.TEAMPACK)
+    data = tools.file.common.import_file(file_choice,
+                                         tools.file.FileTypes.TEAMPACK)
 
     names = []
     # Get all of the team names out of the file
@@ -104,7 +112,7 @@ def split_team_pack():
     page = 1
     files_export = []
     while not done:
-        file, page = util.file.common.select_file(names, page, True, True)
+        file, page = tools.file.common.select_file(names, page, True, True)
 
         if file is None:
             done = True
@@ -128,7 +136,9 @@ def split_team_pack():
         sys.exit(0)
     else:
         for item in files_export:
-            util.file.common.export_file(item, util.file.types.FileTypes.TEAM)
+            tools.file.common.export_file(item,
+                                          tools.file.FileTypes.TEAM)
+
 
 def export_logo():
     """The main function that controls exporting logos"""
@@ -137,13 +147,14 @@ def export_logo():
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team whose logo you wish to export.')
-        team_guid = util.db._get_team_guid(c)
-        data = _fetch_data(c, team_guid)
+        team_guid = tools.db._get_team_guid(c)
+        data = tools.db.exports.logo(c, team_guid)
         conn.close()
     except KeyboardInterrupt:
         conn.close()
         raise KeyboardInterrupt from None
 
-    util.file.common.export_file(data, util.file.types.FileTypes.LOGO)
+    fname = tools.file.common.export_file(data,
+                                          tools.file.FileTypes.LOGO)
 
     print('Saving file as ' + fname)

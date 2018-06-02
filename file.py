@@ -1,3 +1,7 @@
+import math
+from smb2tools import exceptions
+
+
 def select_file(files, page=1, mchoice=False, all=False):
     """Allow the user to select a team from a list
 
@@ -14,7 +18,7 @@ def select_file(files, page=1, mchoice=False, all=False):
     cur_page = page
 
     allowable_options = {'1', '2', '3', '4', '5', '6', '7', '8',
-                         '9', '0', 'b'}  
+                         '9', '0', 'b'}
     max_pages = math.ceil(len(files)/10)
     if (cur_page > max_pages):
         cur_page = max_pages
@@ -28,7 +32,7 @@ def select_file(files, page=1, mchoice=False, all=False):
     while not select:
         print('')
         print('Page ' + str(cur_page) + ' of files')
-        print('Choose an option.')                                                                                                                                      
+        print('Choose an option.')
         max_range = 10
         if(cur_page == max_pages):
             max_range = len(files) % 10
@@ -60,7 +64,7 @@ def select_file(files, page=1, mchoice=False, all=False):
             elif (choice == 'd'):
                 return (None, cur_page)
             elif (choice == 'b'):
-                raise util.GoBackException
+                raise exceptions.MenuExit
             elif (choice == 'a'):
                 return (True, cur_page)
             else:

@@ -1,9 +1,6 @@
 """A module to organise writing and reading files used by the tool"""
-from . import types
 import os
-import sys
-import math
-import util
+from smb2tools import file, exceptions
 
 
 def is_compatible(data, type):
@@ -20,7 +17,7 @@ def is_compatible(data, type):
         version = data['version']
     except KeyError:
         version = 1
-    if version == types.cur_ver or version in types.compat[type]:
+    if version == file.cur_ver or version in file.compat[type]:
         return True
     else:
         return False
@@ -52,18 +49,18 @@ def get_file_name(file, type):
     type - the type of file to save, determines extension
     """
 
-    if (os.path.isfile(file + types.extensions[type])):
+    if (os.path.isfile(file + file.extensions[type])):
         number = 0
         exists = True
         while exists:
             if (os.path.isfile(file + '_' + str(number) +
-                               types.extensions[type])):
+                               file.extensions[type])):
                 number += 1
             else:
-                fname = file + '_' + str(number) + types.extensions[type]
+                fname = file + '_' + str(number) + file.extensions[type]
                 exists = False
     else:
-        fname = file + types.extensions[type]
+        fname = file + file.extensions[type]
 
     return fname
 
@@ -76,7 +73,7 @@ def get_file_list(types):
     """
 
     if(types):
-        exts = [util.file.types.extensions[t] for t in types]
+        exts = [file.extensions[t] for t in types]
     else:
         raise exceptions.NoExtensionsError
 
@@ -110,7 +107,7 @@ def save(data, type):
     """
 
     # The exports dict holds a callable, which we then call
-    return types.exports[type](data)
+    return file.exports[type](data)
 
 
 def load(file_name, type):
@@ -123,4 +120,4 @@ def load(file_name, type):
     type - the type of file to read
     """
 
-    return types.imports[type](file_name)
+    return file.imports[type](file_name)

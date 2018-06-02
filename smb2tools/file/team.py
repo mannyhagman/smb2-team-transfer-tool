@@ -1,6 +1,7 @@
 """A module for importing and exporting team data files"""
 import json
-from .. import exceptions
+from smb2tools import exceptions, file
+from smb2tools import json as json_tools
 
 
 def _process_data_ver1(data):
@@ -35,13 +36,13 @@ def save(data):
     """
     team_name = data['team_data'][2]
 
-    fname = util.file.common.get_file_name(team_name,
-                                           util.file.types.FileTypes.TEAM)
+    fname = file.common.get_file_name(team_name,
+                                      file.FileTypes.TEAM)
 
-    data['version'] = util.file.types.cur_ver
+    data['version'] = file.cur_ver
 
     f = open(fname, 'w')
-    f.write(json.dumps(data, cls=util.json.BytesEncoder))
+    f.write(json.dumps(data, cls=json_tools.BytesEncoder))
     f.close()
 
     return fname
@@ -56,11 +57,11 @@ def load(file):
     file - the file to load data from
     """
     with open(file) as team_file:
-        data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
+        data = json.loads(team_file.read(), cls=json_tools.BytesDecoder)
 
-    if util.file.common.is_file_compatible(data,
-                                           util.file.types.FileTypes.TEAM):
-        if(util.file.common.get_data_version(data) == 1):
+    if file.common.is_file_compatible(data,
+                                      file.FileTypes.TEAM):
+        if(file.common.get_data_version(data) == 1):
             return _process_data_ver1(data)
 
         return data

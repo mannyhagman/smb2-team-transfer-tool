@@ -1,3 +1,4 @@
+import sys
 import os
 import util
 import exports
@@ -12,12 +13,12 @@ def main():
 
     try:
         save_file = tools.save.load()
-    except exceptions.NoSavesError:
+    except tools.exceptions.NoSavesError:
         print('No save data found.')
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
-    except exceptions.TooManySavesError:
+    except tools.exceptions.TooManySavesError:
         print('Multiple save files! Quitting to avoid problems.')
         print('Press Enter to exit.')
         input('')

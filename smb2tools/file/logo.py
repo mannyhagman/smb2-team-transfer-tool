@@ -1,8 +1,8 @@
 """A module for importing and exporting team logo files"""
-import util
 import json
-import sys
 import uuid
+from smb2tools import exceptions, file
+from smb2tools import json as json_tools
 
 
 def save(data):
@@ -15,22 +15,22 @@ def save(data):
 
     del data['team_data']
 
-    fname = util.file.common.get_file_name(team_name,
-                                           util.file.types.FileTypes.LOGO)
+    fname = file.common.get_file_name(team_name,
+                                      file.FileTypes.LOGO)
 
-    data['version'] = util.file.types.cur_ver
+    data['version'] = file.cur_ver
 
     f = open(fname, 'w')
-    f.write(json.dumps(data, cls=util.json.BytesEncoder))
+    f.write(json.dumps(data, cls=json_tools.BytesEncoder))
     f.close()
 
 
 def load(file):
     with open(file) as team_file:
-        data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
+        data = json.loads(team_file.read(), cls=json_tools.BytesDecoder)
 
-    if util.file.common.is_file_compatible(data,
-                                           util.file.types.FileTypes.TEAM):
+    if file.common.is_file_compatible(data,
+                                      file.FileTypes.TEAM):
         new_data = {'logo_data': [], 'logo_attrs': []}
 
         guid_map = {}
