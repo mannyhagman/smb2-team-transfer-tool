@@ -1,6 +1,7 @@
 import sys
 import sqlite3
 import smb2tools as tools
+import db
 
 
 def team():
@@ -10,7 +11,7 @@ def team():
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team you wish to export.')
-        team_guid = tools.db._get_team_guid(c)
+        team_guid = db._get_team_guid(c)
         data = tools.db.exports.team(c, team_guid)
         conn.close()
     except KeyboardInterrupt:
