@@ -59,7 +59,7 @@ def main():
                 raise KeyboardInterrupt
             else:
                 print('That is not a valid option. Please try again.')
-        except tools.exceptions.GoBackException:
+        except tools.exceptions.MenuExit:
             pass
 
     os.remove('database.sqlite')
