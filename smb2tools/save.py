@@ -11,6 +11,7 @@ def _get_save_location():
 
     save_name = 'savedata.sav'
     save_dir = '~\AppData\local\Metalhead\Super Mega Baseball 2'
+    print(os.name)
     if os.name == 'nt':
         save_files = []
 
@@ -25,6 +26,8 @@ def _get_save_location():
         files = os.listdir()
         if 'savedata.sav' in files:
             return [('.', 'savedata.sav')]
+        else:
+            return []
 
 
 def _extract_save_file(save_files):
@@ -53,6 +56,8 @@ def load():
     """
 
     save_files = _get_save_location()
+
+    print(save_files)
 
     _extract_save_file(save_files)
 
