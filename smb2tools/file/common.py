@@ -37,7 +37,7 @@ def get_version(data):
         return 1
 
 
-def get_file_name(file, type):
+def get_file_name(fname, type):
     """Gets an unused file name to save the file to.
 
     It'll try name.ext, but if it's already in use,
@@ -45,22 +45,22 @@ def get_file_name(file, type):
     until it finds an unused one.
 
     Arguments:
-    file - the name to try and save to
+    fname - the name to try and save to
     type - the type of file to save, determines extension
     """
 
-    if (os.path.isfile(file + file.extensions[type])):
+    if (os.path.isfile(fname + file.extensions[type])):
         number = 0
         exists = True
         while exists:
-            if (os.path.isfile(file + '_' + str(number) +
+            if (os.path.isfile(fname + '_' + str(number) +
                                file.extensions[type])):
                 number += 1
             else:
-                fname = file + '_' + str(number) + file.extensions[type]
+                fname = fname + '_' + str(number) + file.extensions[type]
                 exists = False
     else:
-        fname = file + file.extensions[type]
+        fname = fname + file.extensions[type]
 
     return fname
 

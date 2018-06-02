@@ -18,7 +18,7 @@ def team():
         conn.close()
         raise KeyboardInterrupt from None
 
-    tools.file.common.export_file(data, tools.file.FileTypes.TEAM)
+    tools.file.common.save(data, tools.file.FileTypes.TEAM)
 
 
 def _get_team_files():

@@ -15,7 +15,7 @@ def _get_team_file():
     return file
 
 
-def import_team(save):
+def team(save):
 
     # Back up original save data
     tools.save.backup_data(save)
@@ -80,7 +80,7 @@ def _get_logo_file():
     return file
 
 
-def import_logo(save):
+def logo(save):
 
     # Back up original save data
     tools.save.backup_data(save)
