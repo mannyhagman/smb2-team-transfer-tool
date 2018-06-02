@@ -24,12 +24,14 @@ def save(data):
     f.write(json.dumps(data, cls=json_tools.BytesEncoder))
     f.close()
 
+    return fname
 
-def load(file):
-    with open(file) as team_file:
+
+def load(fname):
+    with open(fname) as team_file:
         data = json.loads(team_file.read(), cls=json_tools.BytesDecoder)
 
-    if file.common.is_file_compatible(data,
+    if file.common.is_compatible(data,
                                       file.FileTypes.TEAM):
         new_data = {'logo_data': [], 'logo_attrs': []}
 

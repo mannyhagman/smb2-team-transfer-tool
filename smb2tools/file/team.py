@@ -48,20 +48,20 @@ def save(data):
     return fname
 
 
-def load(file):
+def load(fname):
     """Imports the team data from file
 
     Returns the data imported from file.
 
     Arguments:
-    file - the file to load data from
+    fname - the file to load data from
     """
-    with open(file) as team_file:
+    with open(fname) as team_file:
         data = json.loads(team_file.read(), cls=json_tools.BytesDecoder)
 
-    if file.common.is_file_compatible(data,
+    if file.common.is_compatible(data,
                                       file.FileTypes.TEAM):
-        if(file.common.get_data_version(data) == 1):
+        if(file.common.get_version(data) == 1):
             return _process_data_ver1(data)
 
         return data

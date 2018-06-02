@@ -1,13 +1,14 @@
 import sys
 import sqlite3
 import smb2tools as tools
+import util
 
 
 def _get_file(types):
     """Collects and allows the user to choose which file to import"""
-    team_files = tools.file.common.get_team_files_list(types)
+    team_files = tools.file.common.get_file_list(types)
 
-    file, page = tools.file.common.select_file(team_files, 1)
+    file, page = util.select_file(team_files, 1)
 
     return file
 
@@ -15,7 +16,7 @@ def _get_file(types):
 def team(save):
 
     # Back up original save data
-    tools.save.backup_data(save)
+    tools.save.backup(save)
     print('Backup of savedata made to savedata_backup.sav')
 
     team_file = _get_file([tools.file.FileTypes.TEAM,
@@ -29,7 +30,7 @@ def team(save):
     try:
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
-        data = tools.file.common.import_file(team_file, file_type)
+        data = tools.file.common.load(team_file, file_type)
         try:
             if (file_type == tools.file.FileTypes.TEAM):
                 team_name = data['team_data'][2]
@@ -65,13 +66,13 @@ def team(save):
         conn.close()
         raise KeyboardInterrupt from None
 
-    tools.save.save_data(save)
+    tools.save.save(save)
 
 
 def logo(save):
 
     # Back up original save data
-    tools.save.backup_data(save)
+    tools.save.backup(save)
     print('Backup of savedata made to savedata_backup.sav')
 
     logo_file = _get_file([tools.file.FileTypes.LOGO])
@@ -80,9 +81,9 @@ def logo(save):
         conn = sqlite3.connect('database.sqlite')
         c = conn.cursor()
         print('Type the name of the team you wish to import the logo to.')
-        team_guid = tools.db._get_team_guid(c)
+        team_guid = util._get_team_guid(c)
         try:
-            data = tools.file.common.import_file(logo_file,
+            data = tools.file.common.load(logo_file,
                                                  tools.file.FileTypes.LOGO)
         except tools.exceptions.IncompatibleError:
             print('This data is incompatible with the current version of '
@@ -97,12 +98,13 @@ def logo(save):
             item[1] = team_guid
 
         try:
-            tools.db.imports.team(c, data)
+            tools.db.imports.logo(c, data, team_guid)
         except KeyError:
             print('There is a problem with your logo file.')
             print('Try redownloading or recreating your file.')
             print('If the problem persists, let the developer know.')
             print('Press Enter to exit.')
+            input('')
             sys.exit(0)
         except sqlite3.IntegrityError:
             print('There has been a problem with the database.')
@@ -116,4 +118,4 @@ def logo(save):
         conn.close()
         raise KeyboardInterrupt from None
 
-    tools.save.save_data(save)
+    tools.save.save(save)

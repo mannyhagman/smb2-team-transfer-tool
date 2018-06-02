@@ -18,7 +18,7 @@ def save(data):
                                       file.FileTypes.TEAMPACK)
 
     for item in data:
-        if not file.common.is_file_compatible(item,
+        if not file.common.is_compatible(item,
                                               file.FileTypes.TEAM):
             raise exceptions.IncompatibleError
 
@@ -31,17 +31,17 @@ def save(data):
     return fname
 
 
-def load(file):
-    with open(file) as team_file:
+def load(fname):
+    with open(fname) as team_file:
         data = json.loads(team_file.read(), cls=json_tools.BytesDecoder)
 
-    if file.common.is_file_compatible(data,
+    if file.common.is_compatible(data,
                                       file.FileTypes.TEAMPACK):
 
         data_new = []
 
         for item in data['data']:
-            if (file.common.get_data_version(item) == 1):
+            if (file.common.get_version(item) == 1):
                 data_new.append(file.team._process_data_ver1(item))
             else:
                 data_new.append(item)
