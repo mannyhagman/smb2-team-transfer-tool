@@ -9,3 +9,9 @@ def setup():
 
 def teardown():
     conn.close()
+
+def get_cursor():
+    return cur
+
+def get_conn():
+    return conn

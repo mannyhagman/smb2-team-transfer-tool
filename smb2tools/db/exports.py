@@ -4,7 +4,7 @@ from smb2tools import db
 def team(team_guid):
     """Fetches the data needed from the database"""
 
-    c = db.common.cur
+    c = db.common.get_cur()
 
     data = {}
 
@@ -105,7 +105,7 @@ def team(team_guid):
 def logo(team_guid):
     """Fetches the data needed from the database"""
 
-    c = db.common.cur
+    c = db.common.get_cur()
 
     data = {}
 

@@ -1,5 +1,5 @@
 import math
-from smb2tools import exceptions
+import smb2tools as tools
 
 
 def select_file(files, page=1, mchoice=False, all=False):
@@ -64,7 +64,7 @@ def select_file(files, page=1, mchoice=False, all=False):
             elif (choice == 'd'):
                 return (None, cur_page)
             elif (choice == 'b'):
-                raise exceptions.MenuExit
+                raise tools.exceptions.MenuExit
             elif (choice == 'a'):
                 return (True, cur_page)
             else:
@@ -73,8 +73,11 @@ def select_file(files, page=1, mchoice=False, all=False):
             print('That is not a valid option. Please try again.')
 
 
-def _get_team_guid(c):
+def _get_team_guid():
     """User chooses a team, GUID is returned for use in the DB"""
+
+    c = tools.db.common.get_cur()
+
     while True:
         team_name = input('--> ')
         c.execute('SELECT * FROM t_teams WHERE teamType = 1 AND '

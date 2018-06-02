@@ -4,7 +4,7 @@ from smb2tools import db
 def team(data):
     """Writes the data read from file into the DB"""
 
-    c = db.common.cur
+    c = db.common.get_cur()
 
     # t_teams
     team_data = data['team_data']
@@ -106,7 +106,7 @@ def team(data):
 def logo(data, guid):
     """Writes the data read from file into the DB"""
 
-    c = db.common.cur
+    c = db.common.get_cur()
 
     c.execute('DELETE FROM t_team_logos WHERE teamGUID = ?', (guid,))
 

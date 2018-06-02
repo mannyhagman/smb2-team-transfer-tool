@@ -72,7 +72,7 @@ def logo(save):
     logo_file = _get_file([tools.file.FileTypes.LOGO])
 
     print('Type the name of the team you wish to import the logo to.')
-    team_guid = util._get_team_guid(c)
+    team_guid = util._get_team_guid()
     try:
         data = tools.file.common.load(logo_file,
                                              tools.file.FileTypes.LOGO)

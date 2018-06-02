@@ -8,7 +8,7 @@ def team():
     """The main function that controls exporting teams"""
 
     print('Type the name of the team you wish to export.')
-    team_guid = util._get_team_guid(c)
+    team_guid = util._get_team_guid()
     data = tools.db.exports.team(team_guid)
 
     tools.file.common.save(data, tools.file.FileTypes.TEAM)
@@ -137,7 +137,7 @@ def logo():
     """The main function that controls exporting logos"""
 
     print('Type the name of the team whose logo you wish to export.')
-    team_guid = util._get_team_guid(c)
+    team_guid = util._get_team_guid()
     data = tools.db.exports.logo(team_guid)
 
     fname = tools.file.common.save(data,
