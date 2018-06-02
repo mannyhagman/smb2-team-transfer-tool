@@ -4,7 +4,7 @@ import json
 import sys
 
 
-def export_team_pack(data):
+def save(data):
     """Exports the team pack data to file
 
     Arguments:
@@ -32,7 +32,7 @@ def export_team_pack(data):
     return fname
 
 
-def import_team_pack(file):
+def load(file):
     with open(file) as team_file:
         data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
 

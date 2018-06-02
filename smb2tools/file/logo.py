@@ -5,7 +5,7 @@ import sys
 import uuid
 
 
-def export_logo(data):
+def save(data):
     """Exports the team logo to file
 
     Arguments:
@@ -25,7 +25,7 @@ def export_logo(data):
     f.close()
 
 
-def import_logo(file):
+def load(file):
     with open(file) as team_file:
         data = json.loads(team_file.read(), cls=util.json.BytesDecoder)
 
