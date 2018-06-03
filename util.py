@@ -1,5 +1,6 @@
 import math
 import smb2tools as tools
+import smb2tools.db.common as common
 
 
 def select_file(files, page=1, mchoice=False, all=False):
@@ -76,7 +77,7 @@ def select_file(files, page=1, mchoice=False, all=False):
 def _get_team_guid():
     """User chooses a team, GUID is returned for use in the DB"""
 
-    c = tools.db.common.get_cur()
+    c = common.cur
 
     while True:
         team_name = input('--> ')

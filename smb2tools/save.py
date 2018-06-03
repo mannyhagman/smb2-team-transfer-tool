@@ -5,7 +5,6 @@ import zlib
 import shutil
 from smb2tools import exceptions, db
 
-
 def _get_save_location():
     """Get the OS-dependent save location"""
 

@@ -1,3 +1,3 @@
-from smb2tools.db import exports, imports, common
+from smb2tools.db import imports, exports, common
 
 __all__ = [imports, exports, common]

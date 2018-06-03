@@ -57,8 +57,6 @@ def team(save):
         print('If the problem persists, let the developer know.')
         print('Press Enter to exit.')
         sys.exit(0)
-    conn.commit()
-    conn.close()
 
     tools.save.save(save)
 
@@ -103,7 +101,5 @@ def logo(save):
         print('Press Enter to exit.')
         input('')
         sys.exit(0)
-    conn.commit()
-    conn.close()
 
     tools.save.save(save)

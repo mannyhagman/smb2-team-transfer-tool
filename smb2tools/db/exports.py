@@ -1,10 +1,10 @@
-from smb2tools import db
+from . import common
 
 
 def team(team_guid):
     """Fetches the data needed from the database"""
 
-    c = db.common.get_cur()
+    c = common.cur
 
     data = {}
 
@@ -105,7 +105,7 @@ def team(team_guid):
 def logo(team_guid):
     """Fetches the data needed from the database"""
 
-    c = db.common.get_cur()
+    c = common.cur
 
     data = {}
 
